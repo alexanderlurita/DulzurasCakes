@@ -10,10 +10,10 @@ namespace ENTITIES
     {
         public int idproducto { get; set; }
         public int idcategoria { get; set; }
-        public string nombreProducto { get; set; }
+        public string nombreproducto { get; set; }
         public string descripcion { get; set; }
         public DateTime fechaelaboracion { get; set; }
-        public double precio { get; set; }
+        public float precio { get; set; }
         public int stock { get; set; }
         public bool estado { get; set; }
     }

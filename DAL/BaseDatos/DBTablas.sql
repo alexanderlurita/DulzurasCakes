@@ -20,6 +20,7 @@ CREATE TABLE PERSONAS
 	direccion		VARCHAR(100)	NULL,
 	telefono		CHAR(9)			NULL,
 	email			VARCHAR(100)	NULL,
+	estado			BIT				NOT NULL DEFAULT 1,
 	CONSTRAINT uk_dni_per UNIQUE (dni),
 	CONSTRAINT ck_dni_per CHECK (dni LIKE('[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')),
 	CONSTRAINT ck_telefono_per CHECK (telefono LIKE('[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'))
@@ -100,17 +101,16 @@ GO
 CREATE TABLE VENTAS
 (
 	idventa				INT IDENTITY(1,1) PRIMARY KEY,
-	idusuario			INT 			NOT NULL,
 	idpersona			INT 			NULL,
 	idempresa			INT 			NULL,
+	idusuario			INT 			NOT NULL,
 	idtipopago			INT			 	NOT NULL,
 	tipodocumento 		CHAR(1)	 		NOT NULL, -- B = Boleta F = Factura
 	nrodocumento		CHAR(10) 		NOT NULL,
 	fechaventa			DATETIME 		NOT NULL DEFAULT GETDATE(),
-	estado				BIT 			NOT NULL DEFAULT 1,
-	CONSTRAINT fk_idusuario_ven FOREIGN KEY (idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT fk_idpersona_ven FOREIGN KEY (idpersona) REFERENCES personas (idpersona),
 	CONSTRAINT fk_idempresa_ven FOREIGN KEY (idempresa) REFERENCES empresas (idempresa),
+	CONSTRAINT fk_idusuario_ven FOREIGN KEY (idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT fk_idpago_ven FOREIGN KEY (idtipopago) REFERENCES tipo_pagos (idtipopago),
 	CONSTRAINT ck_tipdoc_ven CHECK (tipodocumento IN('B', 'F')),
 	CONSTRAINT ck_numdoc_ven CHECK (nrodocumento LIKE('[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'))

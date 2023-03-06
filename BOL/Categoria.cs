@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using DAL;
+using ENTITIES;
 
 namespace BOL
 {
@@ -14,29 +15,44 @@ namespace BOL
     {
         DBAccess acceso = new DBAccess();
 
-        public DataTable listarCategorias()
+        public DataTable listar()
         {
             DataTable data = new DataTable();
 
             acceso.conectar();
-            SqlDataAdapter command = new SqlDataAdapter("", acceso.getConexion());
-            command.Fill(data);
+            SqlDataAdapter adapter = new SqlDataAdapter("SPU_CATEGORIAS_LISTAR", acceso.getConexion());
+            adapter.Fill(data);
             acceso.desconectar();
 
             return data;
         }
 
-        public int registrarCategoria(string categoria)
+        public DataTable buscar(EntCategoria entidad)
         {
-            int filasAfectadas = 0;
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
+            DataTable data = new DataTable();
+            acceso.conectar();
+
+            SqlCommand command = new SqlCommand("SPU_CATEGORIAS_BUSCAR", acceso.getConexion());
             command.CommandType = CommandType.StoredProcedure;
 
+            command.Parameters.AddWithValue("@idcategoria", entidad.idcategoria);
+            data.Load(command.ExecuteReader());
+
+            acceso.desconectar();
+            return data;
+        }
+
+        public int registrar(EntCategoria entidad)
+        {
+            int filasAfectadas = 0;
+            SqlCommand command = new SqlCommand("SPU_CATEGORIAS_REGISTRAR", acceso.getConexion());
+            command.CommandType = CommandType.StoredProcedure;
+            
             try
             {
-                acceso.conectar ();
+                acceso.conectar();
 
-                command.Parameters.AddWithValue("@categoria", categoria);
+                command.Parameters.AddWithValue("@categoria", entidad.categoria);
                 filasAfectadas = command.ExecuteNonQuery();
 
                 acceso.desconectar();
@@ -48,18 +64,18 @@ namespace BOL
             }
         }
 
-        public int editarCategoria(int idcategoria, string categoria)
+        public int editar(EntCategoria entidad)
         {
             int filasAfectadas = 0;
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
+            SqlCommand command = new SqlCommand("SPU_CATEGORIAS_EDITAR", acceso.getConexion());
             command.CommandType = CommandType.StoredProcedure;
 
             try
             {
                 acceso.conectar();
 
-                command.Parameters.AddWithValue("@idcategoria", idcategoria);
-                command.Parameters.AddWithValue("@categoria", categoria);
+                command.Parameters.AddWithValue("@idcategoria", entidad.idcategoria);
+                command.Parameters.AddWithValue("@categoria", entidad.categoria);
                 filasAfectadas = command.ExecuteNonQuery();
 
                 acceso.desconectar();

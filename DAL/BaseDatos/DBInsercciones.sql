@@ -38,9 +38,7 @@ INSERT INTO CATEGORIAS (categoria) VALUES
 	('Pasteles'),
 	('Bizcochos'),
 	('Galletas'),
-	('Vegetarianos')
-GO
-INSERT INTO CATEGORIAS (categoria) VALUES
+	('Vegetarianos'),
 	('Bocaditos')
 GO
 
@@ -53,20 +51,20 @@ INSERT INTO PRODUCTOS (idcategoria, nombreproducto, descripcion, precio, stock) 
 	(1, 'Gelatina', 'Con flan', 2.0, 15)
 GO
 INSERT INTO PRODUCTOS (idcategoria, nombreproducto, descripcion, precio, stock) VALUES
-	(1, 'brownie', 'porcion bañado en chocolate con pecanas', 3.5, 9),
-	(1, 'pye de manzana', 'Porción', 3.50, 12),
-	(1, 'chessecake', 'Porcion sabor a maracuya', 6.50, 15),
-	(1, 'torta de galleta', 'Porcion, sabor chocolate y vainilla', 3.50, 20),
-	(1, 'Torta de chocolate', 'Porcion, Rellena y bañada con fudge', 6, 12),
-	(2, 'Torta tres leches', 'torta de 1/2 kg',65.00 , 4),
-	(2, 'Torta de chocolate', 'torta de 1/2 kg', 68.00, 4),
+	(1, 'Brownie', 'Porción bañado en chocolate con pecanas', 3.5, 9),
+	(1, 'Pye de manzana', 'Porción', 3.50, 12),
+	(1, 'Chessecake', 'Porción sabor a maracuya', 6.50, 15),
+	(1, 'Torta de galleta', 'Porción, sabor chocolate y vainilla', 3.50, 20),
+	(1, 'Torta de chocolate', 'Porción, Rellena y bañada con fudge', 6, 12),
+	(2, 'Torta tres leches', 'Torta de 1/2 kg',65.00 , 4),
+	(2, 'Torta de chocolate', 'Torta de 1/2 kg', 68.00, 4),
 	(2, 'Torta selva negra', 'Torta de 1/2 kg', 58, 4),
-	(2, 'carrot cake', 'Torta de 1/2 kg', 58, 12),
+	(2, 'Carrot Cake', 'Torta de 1/2 kg', 58, 12),
 	(2, 'Pye de manzana', 'Tamaño mediano', 6, 12),
 	(6, 'Pitipanes', '25 unidades',23, 2),
-	(6, 'cocadas', '25 unidades', 18, 3),
-	(6, 'piernitas y alitas', '25 unidades', 35, 3),
-	(6, 'empanadas de pollo', '25 unidades', 22, 5)
+	(6, 'Cocadas', '25 unidades', 18, 3),
+	(6, 'Piernitas y alitas', '25 unidades', 35, 3),
+	(6, 'Empanadas de pollo', '25 unidades', 22, 5)
 GO
 
 -- TIPO_PAGOS
