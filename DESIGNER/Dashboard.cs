@@ -12,9 +12,22 @@ namespace DESIGNER
 {
     public partial class Dashboard : Form
     {
+        DateTime fechaactual;
         public Dashboard()
         {
             InitializeComponent();
         }
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            fechaactual = DateTime.Now;
+            FECHA.Text = fechaactual.ToLongDateString();
+            HORA.Text = fechaactual.ToShortTimeString();
+        }
+
+        private void Dashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }

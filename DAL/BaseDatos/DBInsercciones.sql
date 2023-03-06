@@ -28,8 +28,8 @@ GO
 
 -- USUARIOS
 INSERT INTO USUARIOS (idpersona, idrol, nombreusuario, claveacceso) VALUES
-	(1,2,'PATRICIA', '123456'),
-	(3,1,'LILIANA', '123456')
+	(1,2,'PATRICIA', '$2a$06$ARAC36bi02mOka7l4snlUO0AUSJKA9sspXCAsFysLf8uoAEYTktbm'), -- 123456
+	(3,1,'LILIANA', '$2a$06$BkyhyuW1ntwos8CubstCZuFDx')	-- 123456
 GO
 
 -- CATEGORIAS

@@ -15,60 +15,77 @@ namespace BOL
     {
         DBAccess acceso = new DBAccess();
 
-        public DataTable listarPersonas()
+        public DataTable listarPersonas(int estado)
         {
-            DataTable persona = new DataTable();
-
-            acceso.conectar();
-            SqlDataAdapter adapter = new SqlDataAdapter("", acceso.getConexion());
-            adapter.Fill(persona);
-            acceso.desconectar();
-
-            return persona;
+            return acceso.getDataFrom("SPU_PERSONAS_LISTAR",estado);
         }
 
-        public void registrarPersona(string apellidos, string nombres, string dni, string direccion, char telefono, string email)
+        public int registrarPersona(EntPersona entPersona)
         {
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
+            int filasAfectadas = 0;
+            SqlCommand command = new SqlCommand("SPU_PERSONAS_INSERTAR", acceso.getConexion());
             command.CommandType = CommandType.StoredProcedure;
-            
-            acceso.conectar();
-            command.Parameters.AddWithValue("", apellidos);
-            command.Parameters.AddWithValue("", nombres);
-            command.Parameters.AddWithValue("", dni);
-            command.Parameters.AddWithValue("", direccion);
-            command.Parameters.AddWithValue("", telefono);
-            command.Parameters.AddWithValue("", email);
+            try
+            {
 
-            command.ExecuteNonQuery();
-            acceso.desconectar();
+                acceso.conectar();
+                command.Parameters.AddWithValue("@apellidos", entPersona.apellidos);
+                command.Parameters.AddWithValue("@nombres", entPersona.nombres);
+                command.Parameters.AddWithValue("@dni", entPersona.dni);
+                command.Parameters.AddWithValue("@direccion", entPersona.direccion);
+                command.Parameters.AddWithValue("@telefono", entPersona.telefono);
+                command.Parameters.AddWithValue("@email", entPersona.email);
+
+                filasAfectadas = command.ExecuteNonQuery();
+                acceso.desconectar();
+
+                return filasAfectadas;
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
-        public void editarPersona(int idpersona, string apellidos, string nombres, string dni, string direccion, char telefono, string email)
+        public int editarPersona(EntPersona entPersona)
         {
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
-            command.CommandType = CommandType.StoredProcedure;
-            acceso.conectar();
-            command.Parameters.AddWithValue("", idpersona);
-            command.Parameters.AddWithValue("", apellidos);
-            command.Parameters.AddWithValue("", nombres);
-            command.Parameters.AddWithValue("", dni);
-            command.Parameters.AddWithValue("", direccion);
-            command.Parameters.AddWithValue("", telefono);
-            command.Parameters.AddWithValue("", email);
 
-            command.ExecuteNonQuery();
-            acceso.desconectar();
+            int filasAfectadas = 0;
+            SqlCommand command = new SqlCommand("SPU_PERSONAS_EDITAR", acceso.getConexion());
+            command.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                acceso.conectar();
+                command.Parameters.AddWithValue("@idpersona", entPersona.idpersona);
+                command.Parameters.AddWithValue("@apellidos", entPersona.apellidos);
+                command.Parameters.AddWithValue("@nombres", entPersona.nombres);
+                command.Parameters.AddWithValue("@dni", entPersona.dni);
+                command.Parameters.AddWithValue("@direccion", entPersona.direccion);
+                command.Parameters.AddWithValue("@telefono", entPersona.telefono);
+                command.Parameters.AddWithValue("@email", entPersona.email);
+
+                filasAfectadas = command.ExecuteNonQuery();
+                acceso.desconectar();
+
+                return filasAfectadas;
+            }
+            catch
+            {
+                return -1;
+            }
+
+
         }
 
-        public DataTable buscarPersona(string dni)
+        public DataTable buscarPersona(EntPersona entPersona)
         {
             DataTable table = new DataTable();
 
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
+            SqlCommand command = new SqlCommand("SPU_PERSONAS_BUSCAR", acceso.getConexion());
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("", dni);
+            command.Parameters.AddWithValue("@idpersona", entPersona.idpersona);
             acceso.conectar();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
             dataAdapter.Fill(table);
@@ -77,16 +94,16 @@ namespace BOL
             return table;
         }
 
-        public int eliminarPersona(int idpersona)
+        public int eliminarPersona(EntPersona entPersona)
         {
             int filasAfectadas = 0;
-
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
-            command.CommandType = CommandType.StoredProcedure;
             try
             {
+
+                SqlCommand command = new SqlCommand("SPU_PERSONAS_ELIMINAR", acceso.getConexion());
+                command.CommandType = CommandType.StoredProcedure;
                 acceso.conectar();
-                command.Parameters.AddWithValue("", idpersona);
+                command.Parameters.AddWithValue("@idpersona", entPersona.idpersona);
                 filasAfectadas = command.ExecuteNonQuery();
                 acceso.desconectar();
                 return filasAfectadas;
@@ -97,24 +114,24 @@ namespace BOL
             }
         }
 
-        public int activarPersona(int idpersona)
+        public int activarPersona(EntPersona entPersona)
         {
             int filasAfectadas = 0;
 
-            SqlCommand command = new SqlCommand("", acceso.getConexion());
-            command.CommandType = CommandType.StoredProcedure;
             try
             {
+                SqlCommand command = new SqlCommand("SPU_PERSONAS_ACTIVAR", acceso.getConexion());
+                command.CommandType = CommandType.StoredProcedure;
                 acceso.conectar();
-                command.Parameters.AddWithValue("", idpersona);
+                command.Parameters.AddWithValue("@idpersona", entPersona.idpersona);
                 filasAfectadas = command.ExecuteNonQuery();
                 acceso.desconectar();
+                return filasAfectadas;
             }
             catch
             {
-                filasAfectadas = -1;
+                return  -1;
             }
-            return filasAfectadas;
         }
 
     }

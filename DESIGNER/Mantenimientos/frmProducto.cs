@@ -109,7 +109,7 @@ namespace DESIGNER.Mantenimientos
                 nudStock.Value == 0
                 )
             {
-                Dialogo.Infomar("Complete los datos por favor");
+                Dialogo.Informar("Complete los datos por favor");
                 return;
             }
 
@@ -201,7 +201,7 @@ namespace DESIGNER.Mantenimientos
                 {
                     if (producto.eliminar(entProducto) > 0)
                     {
-                        Dialogo.Infomar("Eliminado correctamente");
+                        Dialogo.Informar("Eliminado correctamente");
                         cargarDatosActivos();
                     }
                     else
@@ -229,7 +229,7 @@ namespace DESIGNER.Mantenimientos
                 {
                     if (producto.activar(entProducto) > 0)
                     {
-                        Dialogo.Infomar("Activado correctamente");
+                        Dialogo.Informar("Activado correctamente");
                         cargarDatosInactivos();
                     }
                     else

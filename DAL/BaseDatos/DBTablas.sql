@@ -35,6 +35,7 @@ CREATE TABLE EMPRESAS
 	direccion			VARCHAR(100)	NULL,
 	telefono			CHAR(9)			NULL,
 	email				VARCHAR(100)	NULL,
+	estado				BIT				NOT NULL DEFAULT 1,
 	CONSTRAINT uk_ruc_emp UNIQUE (ruc),
 	CONSTRAINT ck_telefono_emp CHECK (telefono LIKE('[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')),
 	CONSTRAINT ck_ruc_emp CHECK (ruc LIKE ('[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'))

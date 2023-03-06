@@ -10,7 +10,7 @@ namespace DESIGNER.Herramientas
     public static class Dialogo
     {
         //Alertas informe simple
-        public static void Infomar(string mensaje)
+        public static void Informar(string mensaje)
         {
             MessageBox.Show(mensaje, "Pasteleria Versión 1.0", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

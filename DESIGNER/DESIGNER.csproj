@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CryptSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +62,36 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mantenimientos\frmEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmEmpresa.Designer.cs">
+      <DependentUpon>frmEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmPersona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmPersona.Designer.cs">
+      <DependentUpon>frmPersona.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmTipoPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmTipoPago.Designer.cs">
+      <DependentUpon>frmTipoPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmUsuario.Designer.cs">
+      <DependentUpon>frmUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmRol.Designer.cs">
+      <DependentUpon>frmRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mantenimientos\frmCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,11 +106,29 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mantenimientos\frmCategoria.resx">
       <DependentUpon>frmCategoria.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mantenimientos\frmEmpresa.resx">
+      <DependentUpon>frmEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mantenimientos\frmPersona.resx">
+      <DependentUpon>frmPersona.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mantenimientos\frmProducto.resx">
       <DependentUpon>frmProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mantenimientos\frmRol.resx">
+      <DependentUpon>frmRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mantenimientos\frmTipoPago.resx">
+      <DependentUpon>frmTipoPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mantenimientos\frmUsuario.resx">
+      <DependentUpon>frmUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -87,7 +138,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,6 +166,12 @@
       <Project>{be12d8e2-9b78-45fd-9441-d0fcd45534e8}</Project>
       <Name>ENTITIES</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MicrosoftTeams-image %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MicrosoftTeams-image %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

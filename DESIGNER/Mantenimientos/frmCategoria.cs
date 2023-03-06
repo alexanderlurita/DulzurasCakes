@@ -48,7 +48,7 @@ namespace DESIGNER.Mantenimientos
         {
             if (txtCategoria.Text.Trim() == String.Empty)
             {
-                Dialogo.Infomar("Complete el nombre de la categoria por favor");
+                Dialogo.Informar("Complete el nombre de la categoria por favor");
                 return;
             }
 
