@@ -156,6 +156,17 @@ AS BEGIN
 END
 GO
 
+--Buscar dni
+alter PROCEDURE SPU_PERSONAS_BUSCARDNI
+@dni		char(8)
+AS BEGIN
+	SELECT  idpersona, apellidos + ' ' +nombres as nombrecompleto
+		FROM PERSONAS
+		WHERE dni = @dni 
+END
+GO
+
+
 -- ELIMINAR
 CREATE PROCEDURE SPU_PERSONAS_ELIMINAR
 @idpersona		INT

@@ -94,6 +94,22 @@ namespace BOL
             return table;
         }
 
+        public DataTable buscarPersonaDni(EntPersona entPersona)
+        {
+            DataTable table = new DataTable();
+
+            SqlCommand command = new SqlCommand("SPU_PERSONAS_BUSCARDNI", acceso.getConexion());
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@dni", entPersona.dni);
+            acceso.conectar();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            dataAdapter.Fill(table);
+
+            acceso.desconectar();
+            return table;
+        }
+
         public int eliminarPersona(EntPersona entPersona)
         {
             int filasAfectadas = 0;
