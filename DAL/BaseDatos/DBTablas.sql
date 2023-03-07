@@ -30,7 +30,7 @@ GO
 CREATE TABLE EMPRESAS
 (
 	idempresa			INT IDENTITY(1,1) PRIMARY KEY,
-	razonSocial			VARCHAR(80)		NOT NULL,
+	razonsocial			VARCHAR(80)		NOT NULL,
 	ruc					CHAR(11)		NOT NULL,
 	direccion			VARCHAR(100)	NULL,
 	telefono			CHAR(9)			NULL,
@@ -107,14 +107,13 @@ CREATE TABLE VENTAS
 	idusuario			INT 			NOT NULL,
 	idtipopago			INT			 	NOT NULL,
 	tipodocumento 		CHAR(1)	 		NOT NULL, -- B = Boleta F = Factura
-	nrodocumento		CHAR(10) 		NOT NULL,
+	nrodocumento		VARCHAR(10) 	NOT NULL,
 	fechaventa			DATETIME 		NOT NULL DEFAULT GETDATE(),
 	CONSTRAINT fk_idpersona_ven FOREIGN KEY (idpersona) REFERENCES personas (idpersona),
 	CONSTRAINT fk_idempresa_ven FOREIGN KEY (idempresa) REFERENCES empresas (idempresa),
 	CONSTRAINT fk_idusuario_ven FOREIGN KEY (idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT fk_idpago_ven FOREIGN KEY (idtipopago) REFERENCES tipo_pagos (idtipopago),
-	CONSTRAINT ck_tipdoc_ven CHECK (tipodocumento IN('B', 'F')),
-	CONSTRAINT ck_numdoc_ven CHECK (nrodocumento LIKE('[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'))
+	CONSTRAINT ck_tipdoc_ven CHECK (tipodocumento IN('B', 'F'))
 )
 GO
 

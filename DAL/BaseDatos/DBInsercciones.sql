@@ -12,8 +12,12 @@ INSERT INTO PERSONAS (apellidos, nombres, dni, direccion, telefono, email) VALUE
 	('Abregu Sotelo', 'Yuli', '76364015','pasaje santa rita 140', null, 'yulisotelo@gmail.com')
 GO
 
+-- SELECT * FROM PRODUCTOS;
+-- SELECT * FROM VENTAS;
+-- SELECT * FROM DETALLE_VENTAS
+
 -- EMPRESAS
-INSERT INTO EMPRESAS(razonSocial, ruc, direccion, telefono, email) VALUES
+INSERT INTO EMPRESAS(razonsocial, ruc, direccion, telefono, email) VALUES
 	('AGROLIGHT PERU S.A.C.','20552103816',  NULL, '999999999', 'AGROLIGHT@GMAIL.COM'),
 	('AGROSORIA E.I.R.L','20538856674',  NULL, '999999999', 'AGROSORIA@GMAIL.COM'),
 	( 'AGRINOVA DEL PERU S.R.L','20553856451', NULL, '999999999', 'AGRINOVA@GMAIL.COM'),
@@ -77,11 +81,11 @@ GO
 
 -- VENTAS
 INSERT INTO VENTAS (idusuario, idpersona, idempresa, idtipopago, tipodocumento, nrodocumento) VALUES
-	(2, 1, NULL, 1, 'B', '0000000001'),
-	(1, NULL, 1, 2, 'B', '0000000002'),
-	(1, 4, NULL, 4, 'F', '0000000003'),
-	(1, 3, NULL, 4, 'B', '0000000004'),
-	(1, 2, NULL, 1, 'B', '0000000005')
+	(2, 1, NULL, 1, 'B', 'BLT0000001'),
+	(1, NULL, 1, 2, 'B', 'BLT0000002'),
+	(1, 4, NULL, 4, 'F', 'FCT0000003'),
+	(1, 3, NULL, 4, 'B', 'BLT0000004'),
+	(1, 2, NULL, 1, 'B', 'BLT0000005')
 GO
 
 -- DETALLE_VENTAS

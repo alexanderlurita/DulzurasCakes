@@ -12,6 +12,6 @@ namespace ENTITIES
         public int idventa { get; set; }
         public int idproducto { get; set; }
         public int cantidad { get; set; }
-        public double precioVenta { get; set; }
+        public float precioventa { get; set; }
     }
 }

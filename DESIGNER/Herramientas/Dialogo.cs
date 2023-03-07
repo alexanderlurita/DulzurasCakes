@@ -24,7 +24,7 @@ namespace DESIGNER.Herramientas
         //Preguntar
         public static DialogResult Preguntar(string mensaje)
         {
-            return MessageBox.Show(mensaje, "Pasteleria Versión 1.0", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return MessageBox.Show(mensaje, "Pasteleria Versión 1.0", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
         }
 
     }

@@ -1,7 +1,4 @@
-﻿using BOL;
-using DESIGNER.Herramientas;
-using ENTITIES;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,180 +8,298 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using BOL;
+using DESIGNER.Herramientas;
+using ENTITIES;
+
 namespace DESIGNER.Mantenimientos
 {
-    public partial class fmrventa : Form
+    public partial class frmVenta : Form
     {
-        TipoPago tipoPago = new TipoPago();
+        Venta venta = new Venta();
         Persona persona = new Persona();
         Empresa empresa = new Empresa();
         Producto producto = new Producto();
+        TipoPago tipoPago = new TipoPago();
+        DetalleVenta detalleVenta = new DetalleVenta();
 
+        EntVenta entVenta = new EntVenta();
         EntPersona entPersona = new EntPersona();
         EntEmpresa entEmpresa = new EntEmpresa();
         EntTipoPago entTipoPago = new EntTipoPago();
         EntProducto entProducto = new EntProducto();
+        EntDetalleVenta entDetalleVenta = new EntDetalleVenta();
 
-
+        DataTable dt = new DataTable();
+        DataView dv = new DataView();
         DataTable resultado = new DataTable();
+        string valorBuscar;
 
-        public fmrventa()
+        public frmVenta()
         {
             InitializeComponent();
         }
 
-        private void frmVenta_Load(object sender, EventArgs e)
+        private void cargarDatos()
         {
+            dt = venta.listar();
+            gridVentas.DataSource = dt;
+            gridVentas.ClearSelection();
+            gridVentas.Refresh();
 
-            // ComboBox Medio Pago
-            DataTable dtTipoPAgo = tipoPago.listarTipoPagos();
-            //Se crea una instancia de AutoCompleteStringCollection
-            AutoCompleteStringCollection registros = new AutoCompleteStringCollection();
-            //Recorremos las filas del DataTable para posteriormente añadir a los registros en forma de array
-            foreach (DataRow row in dtTipoPAgo.Rows)
-            {
-                registros.Add(Convert.ToString(row["tipopago"]));
-            }
-            //Se llena el combobox del DataTable y especificamos los datos a mostrar y los valores que tendrán
-            cmbMedioPago.DataSource = dtTipoPAgo;
-            cmbMedioPago.DisplayMember = "tipopago";
-            cmbMedioPago.ValueMember = "idtipopago";
-            //Llenamos la propiedad de Autocomplete para que autocomplete con cada caracter que escribamos
-            cmbMedioPago.AutoCompleteCustomSource = registros;
-            cmbMedioPago.AutoCompleteMode = AutoCompleteMode.Suggest;
-            cmbMedioPago.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            cmbMedioPago.SelectedIndex = -1;
-
-
-            // ComboBox Producto
-            DataTable dtProducto = producto.listarActivos();
-            AutoCompleteStringCollection registros1 = new AutoCompleteStringCollection();
-            foreach (DataRow row in dtProducto.Rows)
-            {
-                registros1.Add(Convert.ToString(row["nombreproducto"]));
-            }
-            cmbProducto.DataSource = dtProducto;
-            cmbProducto.DisplayMember = "nombreproducto";
-            cmbProducto.ValueMember = "idproducto";
-            cmbProducto.AutoCompleteCustomSource = registros;
-            cmbProducto.AutoCompleteMode = AutoCompleteMode.Suggest;
-            cmbProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            cmbProducto.SelectedIndex = -1;
-
+            dv = dt.DefaultView;
         }
 
-        private void limpiarForm()
+        private void reiniciarDatosCliente()
         {
-            txtDni.Clear();
-            txtCliente.Clear();
-            txtFactura.Clear();
-            cmbMedioPago.SelectedValue = -1;
+            txtDniOrRuc.Clear();
+            txtClienteOrRazonSocial.Clear();
         }
 
-
-        private void limpiarFormProducto()
+        private void reiniciarDatosProductos()
         {
-            txtCantidad.Clear();
+            txtIdProducto.Clear();
+            cmbProductos.SelectedValue = -1;
+            txtDescripcion.Clear();
             txtStock.Clear();
             txtPrecio.Clear();
-            cmbProducto.SelectedValue = -1;
-            txtDescripcion.Clear();
+            nudCantidad.Value = 1;
         }
+
+        private void reiniciarDatosPago()
+        {
+
+        }
+
+        private void frmVenta_Load(object sender, EventArgs e)
+        {
+            cargarDatos();
+            tbcVentas.TabPages.Remove(tbpNuevaVenta);
+
+            //Formateando columnas
+            gridVentas.Columns[0].Width = 100;
+            gridVentas.Columns[1].Width = 200;
+            gridVentas.Columns[2].Width = 200;
+            gridVentas.Columns[3].Width = 90;
+            gridVentas.Columns[4].Width = 113;
+
+            //Asignando datos
+            entVenta.tipodocumento = "B";
+            entVenta.idempresa = 0;
+
+            
+            // ComboBox Producto
+            DataTable dtProducto = producto.listarActivos();
+            AutoCompleteStringCollection registros = new AutoCompleteStringCollection();
+            foreach (DataRow row in dtProducto.Rows)
+            {
+                registros.Add(Convert.ToString(row["nombreproducto"]));
+            }
+            cmbProductos.DataSource = dtProducto;
+            cmbProductos.ValueMember = "idproducto";
+            cmbProductos.DisplayMember = "nombreproducto";
+            cmbProductos.AutoCompleteCustomSource = registros;
+            cmbProductos.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cmbProductos.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            cmbProductos.SelectedValue = -1;
+
+            // ComboBox Medio Pago
+            cmbMedioPago.DataSource = tipoPago.listarTipoPagos();
+            cmbMedioPago.ValueMember = "idtipopago";
+            cmbMedioPago.DisplayMember = "tipopago";
+
+        }
+
+        private void txtValorBuscado_TextChanged(object sender, EventArgs e)
+        {
+            if (txtValorBuscado.Text.Trim() != String.Empty)
+            {
+                valorBuscar = txtValorBuscado.Text.Trim();
+                dv.RowFilter = $"cliente LIKE '%{valorBuscar}%' OR " +
+                               $"razonsocial LIKE '%{valorBuscar}%' OR " +
+                               $"vendedor LIKE '%{valorBuscar}%'";
+            }
+            else
+            {
+                gridVentas.ClearSelection();
+                dt.DefaultView.RowFilter = null;
+            }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            tbcVentas.TabPages.Clear();
+            tbcVentas.TabPages.Add(tbpNuevaVenta);
+            tbcDetalleVenta.TabPages.Clear();
+            tbcDetalleVenta.TabPages.Add(tbpCliente);
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            limpiarForm();
+            reiniciarDatosCliente();
+
+            btnAtras.Visible = false;
+            tbcVentas.TabPages.Clear();
+            tbcVentas.TabPages.Add(tbpVentas);
         }
 
-        
-
-        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        private void btnAtras_Click(object sender, EventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            if (tbcDetalleVenta.SelectedTab == tbpProductos)
             {
-                if (txtDni.Text != "")
+                tbcDetalleVenta.TabPages.Clear();
+                tbcDetalleVenta.TabPages.Add(tbpCliente);
+                btnAtras.Visible = false;
+            }
+            else if (tbcDetalleVenta.SelectedTab == tbpPago)
+            {
+                tbcDetalleVenta.TabPages.Clear();
+                tbcDetalleVenta.TabPages.Add(tbpProductos);
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (tbcDetalleVenta.SelectedTab == tbpCliente)
+            {
+                tbcDetalleVenta.TabPages.Clear();
+                tbcDetalleVenta.TabPages.Add(tbpProductos);
+                btnAtras.Visible = true;
+                cmbProductos.SelectedValue = -1;
+            }
+            else if (tbcDetalleVenta.SelectedTab == tbpProductos)
+            {
+                tbcDetalleVenta.TabPages.Clear();
+                tbcDetalleVenta.TabPages.Add(tbpPago);
+                entVenta.idtipopago = 1;
+            }
+        }
+
+        private void rbtnBoleta_CheckedChanged(object sender, EventArgs e)
+        {
+            reiniciarDatosCliente();
+            entVenta.tipodocumento = "B";
+            entVenta.idempresa = 0;
+            lblDni.Text = "DNI:";
+            txtDniOrRuc.MaxLength = 8;
+            lblCliente.Text = "Cliente:";
+        }
+
+        private void rbtnFactura_CheckedChanged(object sender, EventArgs e)
+        {
+            reiniciarDatosCliente();
+            entVenta.tipodocumento = "F";
+            entVenta.idpersona = 0;
+            lblDni.Text = "RUC:";
+            txtDniOrRuc.MaxLength = 11;
+            lblCliente.Text = "Razón Social:";
+        }
+
+        private void txtDniOrRuc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter) && txtDniOrRuc.Text.Trim() != String.Empty)
+            {
+                if (rbtnBoleta.Checked)
                 {
-                    entPersona.dni = txtDni.Text;
+                    entPersona.dni = txtDniOrRuc.Text;
                     resultado = persona.buscarPersonaDni(entPersona);
                     if (resultado.Rows.Count > 0)
                     {
-                        txtCliente.Text = resultado.Rows[0][1].ToString();
+                        entVenta.idpersona = Convert.ToInt32(resultado.Rows[0][0].ToString());
+                        txtClienteOrRazonSocial.Text = resultado.Rows[0][1].ToString();
+                    }
+                    else
+                    {
+                        Dialogo.Error("No existe en la base de datos.");
                     }
                 }
-            }
-        }
-
-        private void rbFactura_CheckedChanged_1(object sender, EventArgs e)
-        {
-            txtFactura.Visible = true;
-            txtDni.Visible = false;
-            lblDni.Text = "RUC: ";
-            lblCliente.Text = "Empresa";
-        }
-
-        private void rbBoleta_CheckedChanged_1(object sender, EventArgs e)
-        {
-            txtFactura.Visible = false;
-            txtDni.Visible = true;
-            lblDni.Text = "DNI: ";
-            lblCliente.Text = "Cliente: ";
-        }
-
-        private void txtFactura_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                if (txtFactura.Text != "")
+                else
                 {
-                    entEmpresa.ruc = txtFactura.Text;
+                    entEmpresa.ruc = txtDniOrRuc.Text.Trim();
                     resultado = empresa.buscarEmpresa(entEmpresa);
                     if (resultado.Rows.Count > 0)
                     {
-                        txtCliente.Text = resultado.Rows[0][1].ToString();
+                        entVenta.idempresa = Convert.ToInt32(resultado.Rows[0][0].ToString());
+                        txtClienteOrRazonSocial.Text = resultado.Rows[0][1].ToString();
+                    }
+                    else
+                    {
+                        Dialogo.Error("No existe en la base de datos.");
                     }
                 }
             }
         }
 
-        private void btnCancelar_Click_1(object sender, EventArgs e)
+        private void btnAnadir_Click(object sender, EventArgs e)
         {
-            limpiarForm();
+
         }
 
         private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-                entProducto.idproducto= Convert.ToInt32(cmbProducto.SelectedIndex);
-                DataTable dtProducto = producto.buscar(entProducto);
-                if (dtProducto.Rows.Count > 0)
-                {
-                    txtDescripcion.Text = dtProducto.Rows[0][3].ToString();
-                    txtPrecio.Text = dtProducto.Rows[0][5].ToString();
-                    txtStock.Text = dtProducto.Rows[0][6].ToString();
-
+            entProducto.idproducto = Convert.ToInt32(cmbProductos.SelectedValue);
+            DataTable dtProducto = producto.buscar(entProducto);
+            if (dtProducto.Rows.Count > 0)
+            {
+                txtIdProducto.Text = dtProducto.Rows[0][0].ToString();
+                txtDescripcion.Text = dtProducto.Rows[0][3].ToString();
+                txtPrecio.Text = dtProducto.Rows[0][5].ToString();
+                txtStock.Text = dtProducto.Rows[0][6].ToString();
             }
-            
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (cmbProducto.SelectedValue.ToString() != String.Empty || txtCantidad.Text.ToString() != String.Empty)
+            if (
+                cmbProductos.SelectedValue.ToString() != String.Empty && 
+                nudCantidad.Text.ToString() != String.Empty
+                )
             {
-                entProducto.precio = (float)Convert.ToDecimal( txtPrecio.Text);
-                float cantidad = (float)Convert.ToDecimal(txtCantidad.Text);
-                entProducto.descripcion = txtDescripcion.Text;
-                float importe =cantidad * entProducto.precio;
-                gridDetalle.Rows.Add(cantidad, entProducto.descripcion, entProducto.precio, importe);
-                Dialogo.Informar("Agregado...");
+                int idproducto = Convert.ToInt32(txtIdProducto.Text);
+                string descripcion = txtDescripcion.Text;
+                float precio = (float)Convert.ToDecimal(txtPrecio.Text);
+                float cantidad = (float)Convert.ToDecimal(nudCantidad.Value);
+                float importe = cantidad * entProducto.precio;
+                gridDetalles.Rows.Add(idproducto, descripcion, precio, cantidad, importe);
             }
         }
 
         private void btnReiniciar_Click(object sender, EventArgs e)
         {
-            limpiarFormProducto();
+            reiniciarDatosProductos();
         }
 
-        private void txtNeto_TextChanged(object sender, EventArgs e)
+        private void btnFinalizar_Click(object sender, EventArgs e)
         {
+            entVenta.idusuario = 1;
+            venta.registrar(entVenta);
+
+            DataTable dtUltimaVenta = venta.getUltimaVenta();
+            entDetalleVenta.idventa = Convert.ToInt32(dtUltimaVenta.Rows[0][0].ToString());
+
+            foreach (DataGridViewRow row in gridDetalles.Rows)
+            {
+                entDetalleVenta.idproducto = Convert.ToInt32(row.Cells["CIdProducto"].Value.ToString());
+                entDetalleVenta.cantidad = Convert.ToInt32(row.Cells["CCantidad"].Value.ToString());
+                entDetalleVenta.precioventa = (float)Convert.ToDecimal(row.Cells["CPrecio"].Value.ToString());
+
+                detalleVenta.registrar(entDetalleVenta);
+            }
+
+            Dialogo.Informar("Venta realizada correctamente");
+
+            //MessageBox.Show(entVenta.idpersona.ToString());
+            //MessageBox.Show(entVenta.idempresa.ToString());
+            //MessageBox.Show(entVenta.idusuario.ToString());
+            //MessageBox.Show(entVenta.idtipopago.ToString());
+            //MessageBox.Show(entVenta.tipodocumento.ToString());
+            //MessageBox.Show(entVenta.idventa.ToString());
+
+        }
+
+        private void cmbMedioPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            entVenta.idtipopago = Convert.ToInt16(cmbMedioPago.SelectedValue.ToString());
         }
     }
 }

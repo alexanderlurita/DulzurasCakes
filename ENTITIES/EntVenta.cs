@@ -15,6 +15,5 @@ namespace ENTITIES
         public int idtipopago { get; set; }
         public string tipodocumento { get; set; }
         public string nrodocumento { get; set; }
-        public DateTime fechaventa { get; set; }
     }
 }

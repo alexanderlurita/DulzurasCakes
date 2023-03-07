@@ -57,7 +57,6 @@ namespace BOL
                 command.Parameters.AddWithValue("@idusuario", entidad.idusuario);
                 command.Parameters.AddWithValue("@idtipopago", entidad.idtipopago);
                 command.Parameters.AddWithValue("@tipodocumento", entidad.tipodocumento);
-                command.Parameters.AddWithValue("@nrodocumento", entidad.nrodocumento);
                 filasAfectadas = command.ExecuteNonQuery();
 
                 acceso.desconectar();
@@ -69,33 +68,17 @@ namespace BOL
             }
         }
         
-        public int editar(EntVenta entidad)
+        public DataTable getUltimaVenta()
         {
-            int filasAfectadas = 0;
+            DataTable data = new DataTable();
 
-            SqlCommand command = new SqlCommand("SPU_VENTAS_EDITAR", acceso.getConexion());
-            command.CommandType = CommandType.StoredProcedure;
+            acceso.conectar();
+            SqlDataAdapter adapter = new SqlDataAdapter("SPU_VENTAS_ULTIMA_VENTA", acceso.getConexion());
+            adapter.Fill(data);
+            acceso.desconectar();
 
-            try
-            {
-                acceso.conectar();
-
-                command.Parameters.AddWithValue("@idventa", entidad.idventa);
-                command.Parameters.AddWithValue("@idpersona", entidad.idpersona);
-                command.Parameters.AddWithValue("@idempresa", entidad.idempresa);
-                command.Parameters.AddWithValue("@idusuario", entidad.idusuario);
-                command.Parameters.AddWithValue("@idtipopago", entidad.idtipopago);
-                command.Parameters.AddWithValue("@tipodocumento", entidad.tipodocumento);
-                command.Parameters.AddWithValue("@nrodocumento", entidad.nrodocumento);
-                filasAfectadas = command.ExecuteNonQuery();
-
-                acceso.desconectar();
-                return filasAfectadas;
-            }
-            catch
-            {
-                return -1;
-            }
+            return data;
         }
+
     }
 }

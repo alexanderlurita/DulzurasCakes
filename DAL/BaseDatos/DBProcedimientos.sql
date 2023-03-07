@@ -157,7 +157,7 @@ END
 GO
 
 --Buscar dni
-alter PROCEDURE SPU_PERSONAS_BUSCARDNI
+CREATE PROCEDURE SPU_PERSONAS_BUSCARDNI
 @dni		char(8)
 AS BEGIN
 	SELECT  idpersona, apellidos + ' ' +nombres as nombrecompleto
@@ -449,7 +449,7 @@ GO
 -- LISTAR
 CREATE PROCEDURE SPU_VENTAS_LISTAR
 AS BEGIN
-	SELECT	VEN.idventa, PER.apellidos + PER.nombres 'cliente', EMP.razonSocial 'empresa',
+	SELECT	VEN.idventa, PER.apellidos+' '+PER.nombres 'cliente', EMP.razonsocial,
 			USU.nombreusuario 'vendedor', VEN.fechaventa
 		FROM VENTAS VEN
 		INNER JOIN USUARIOS USU ON VEN.idusuario = USU.idusuario
@@ -469,17 +469,34 @@ AS BEGIN
 END
 GO
 
+-- TRAE EL ID DE LA ULTIMA VENTA
+CREATE PROCEDURE SPU_VENTAS_ULTIMA_VENTA
+AS BEGIN
+	SELECT MAX(idventa) AS idultimaventa
+		FROM VENTAS
+END
+GO
+
 -- REGISTRAR
 CREATE PROCEDURE SPU_VENTAS_REGISTRAR
 @idpersona			INT,
 @idempresa			INT,
 @idusuario			INT,
 @idtipopago			INT,
-@tipodocumento		CHAR(1),
-@nrodocumento		CHAR(10)
+@tipodocumento		CHAR(1)
 AS BEGIN
+	IF @idpersona = 0 SET @idpersona = NULL;
+	IF @idempresa = 0 SET @idempresa = NULL;
+	DECLARE @codedocumento VARCHAR(3) = 'BLT';
+	IF @tipodocumento = 'F' SET @codedocumento = 'FCT';
+	DECLARE @nrodocumento VARCHAR(10) = 
+	(
+		SELECT @codedocumento+RIGHT('0000000000'+CONVERT(VARCHAR,ISNULL(MAX(RIGHT(nrodocumento,7)),0)+1),7) 
+			FROM VENTAS
+	);
+	
 	INSERT INTO VENTAS(idpersona, idempresa, idusuario, idtipopago, tipodocumento, nrodocumento) VALUES
-		(@idusuario, @idpersona, @idempresa, @idtipopago, @tipodocumento, @nrodocumento)
+		(@idpersona, @idempresa, @idusuario, @idtipopago, @tipodocumento, @nrodocumento)
 END
 GO
 
@@ -524,5 +541,17 @@ AS BEGIN
 	SELECT * 
 		FROM DETALLE_VENTAS
 		WHERE iddetventa = @iddetventa
+END
+GO
+
+-- REGISTRAR
+CREATE PROCEDURE SPU_DETVENTA_REGISTRAR
+@idventa			INT,
+@idproducto			INT,
+@cantidad			TINYINT,
+@precioventa		DECIMAL(7,2)
+AS BEGIN
+	INSERT INTO DETALLE_VENTAS (idventa, idproducto, cantidad, precioventa) VALUES
+		(@idventa, @idproducto, @cantidad, @precioventa)
 END
 GO

@@ -16,7 +16,7 @@ namespace DESIGNER
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Mantenimientos.fmrventa());
+            Application.Run(new Mantenimientos.frmVenta());
         }
     }
 }
