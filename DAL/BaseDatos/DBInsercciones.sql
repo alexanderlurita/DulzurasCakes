@@ -73,9 +73,9 @@ GO
 
 -- TIPO_PAGOS
 INSERT INTO TIPO_PAGOS (tipopago) VALUES
-	('Yape'),
 	('Efectivo'),
 	('Tarjeta'),
+	('Yape'),
 	('Plim')
 GO
 
@@ -121,4 +121,7 @@ INSERT INTO DETALLE_VENTAS (idventa, idproducto, cantidad, precioventa) VALUES
 	(5, 1, 2, 45.5),
 	(5, 2, 2, 2.0),
 	(5, 5, 4, 2.0)
+GO
+
+USE master
 GO

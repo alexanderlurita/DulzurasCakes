@@ -207,6 +207,9 @@ CREATE PROCEDURE SPU_EMPRESAS_INSERTAR
 @telefono		CHAR(9),
 @email			VARCHAR(100)
 AS BEGIN
+	IF @direccion = '' SET @direccion = NULL	
+	IF @telefono = '' SET @telefono = NULL 
+	IF @email = '' SET @email = NULL 
 	INSERT INTO EMPRESAS(razonSocial, ruc, direccion, telefono, email) 
 		VALUES (@razonSocial,@ruc, @direccion, @telefono, @email)
 END
@@ -469,6 +472,8 @@ AS BEGIN
 END
 GO
 
+-- EXEC SPU_VENTAS_BUSCAR 1
+
 -- TRAE EL ID DE LA ULTIMA VENTA
 CREATE PROCEDURE SPU_VENTAS_ULTIMA_VENTA
 AS BEGIN
@@ -487,11 +492,13 @@ CREATE PROCEDURE SPU_VENTAS_REGISTRAR
 AS BEGIN
 	IF @idpersona = 0 SET @idpersona = NULL;
 	IF @idempresa = 0 SET @idempresa = NULL;
+
 	DECLARE @codedocumento VARCHAR(3) = 'BLT';
 	IF @tipodocumento = 'F' SET @codedocumento = 'FCT';
+
 	DECLARE @nrodocumento VARCHAR(10) = 
 	(
-		SELECT @codedocumento+RIGHT('0000000000'+CONVERT(VARCHAR,ISNULL(MAX(RIGHT(nrodocumento,7)),0)+1),7) 
+		SELECT @codedocumento+RIGHT('0000000000'+CONVERT(VARCHAR,ISNULL(MAX(RIGHT(nrodocumento,7)),0)+1),7)
 			FROM VENTAS
 	);
 	
@@ -525,24 +532,19 @@ GO
 
 ------------------------------------
 -- DETALLE_VENTAS
--- LISTAR
-CREATE PROCEDURE SPU_DETVENTA_LISTAR
+-- LISTAR DETALLES DE UNA VENTA
+CREATE PROCEDURE SPU_DETVENTA_LISTAR_DETALLES_VENTA
+@idventa			INT
 AS BEGIN
-	SELECT * 
-		FROM DETALLE_VENTAS
-		ORDER BY iddetventa DESC
+	SELECT	PRO.nombreproducto, DET.precioventa, DET.cantidad,
+			DET.precioventa * DET.cantidad 'importe'
+		FROM DETALLE_VENTAS DET
+		INNER JOIN PRODUCTOS PRO ON DET.idproducto = PRO.idproducto
+		WHERE DET.idventa = @idventa
 END
 GO
 
--- BUSCAR
-CREATE PROCEDURE SPU_DETVENTA_BUSCAR
-@iddetventa			INT
-AS BEGIN
-	SELECT * 
-		FROM DETALLE_VENTAS
-		WHERE iddetventa = @iddetventa
-END
-GO
+-- EXEC SPU_DETVENTA_LISTAR_DETALLES_VENTA 1
 
 -- REGISTRAR
 CREATE PROCEDURE SPU_DETVENTA_REGISTRAR
@@ -554,4 +556,7 @@ AS BEGIN
 	INSERT INTO DETALLE_VENTAS (idventa, idproducto, cantidad, precioventa) VALUES
 		(@idventa, @idproducto, @cantidad, @precioventa)
 END
+GO
+
+USE master
 GO

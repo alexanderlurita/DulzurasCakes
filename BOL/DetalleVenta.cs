@@ -15,6 +15,21 @@ namespace BOL
     {
         DBAccess acceso = new DBAccess();
 
+        public DataTable listarDetallesVenta(EntDetalleVenta entidad)
+        {
+            DataTable data = new DataTable();
+            acceso.conectar();
+
+            SqlCommand command = new SqlCommand("SPU_DETVENTA_LISTAR_DETALLES_VENTA", acceso.getConexion());
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@idventa", entidad.idventa);
+            data.Load(command.ExecuteReader());
+
+            acceso.desconectar();
+            return data;
+        }
+
         public int registrar(EntDetalleVenta entidad)
         {
             int filasAfectadas = 0;
