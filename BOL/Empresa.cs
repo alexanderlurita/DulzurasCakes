@@ -25,18 +25,27 @@ namespace BOL
         {
             
             int filasAfectadas = 0;
-            acceso.conectar();
-            // objeto que permite la insercion del registro
             SqlCommand command = new SqlCommand("SPU_EMPRESAS_INSERTAR", acceso.getConexion());
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@razonSocial", registrar.razonSocial);
-            command.Parameters.AddWithValue("@ruc", registrar.ruc);
-            command.Parameters.AddWithValue("@direccion", registrar.direccion);
-            command.Parameters.AddWithValue("@telefono", registrar.telefono);
-            command.Parameters.AddWithValue("@email", registrar.email);
-            filasAfectadas = command.ExecuteNonQuery();
-            acceso.desconectar();
-            return filasAfectadas;
+
+            try
+            {
+                acceso.conectar();
+                command.Parameters.AddWithValue("@razonSocial", registrar.razonSocial);
+                command.Parameters.AddWithValue("@ruc", registrar.ruc);
+                command.Parameters.AddWithValue("@direccion", registrar.direccion);
+                command.Parameters.AddWithValue("@telefono", registrar.telefono);
+                command.Parameters.AddWithValue("@email", registrar.email);
+
+                filasAfectadas = command.ExecuteNonQuery();
+                acceso.desconectar();
+
+                return filasAfectadas;
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
         public int editarEmpresa(EntEmpresa editar)

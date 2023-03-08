@@ -1,6 +1,6 @@
-﻿namespace DESIGNER
+﻿namespace DESIGNER.Modales
 {
-    partial class MdEmpresa
+    partial class mdEmpresa
     {
         /// <summary>
         /// Required designer variable.

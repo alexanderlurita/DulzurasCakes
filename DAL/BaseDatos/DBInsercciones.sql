@@ -9,7 +9,11 @@ INSERT INTO PERSONAS (apellidos, nombres, dni, direccion, telefono, email) VALUE
 	('Atuncar Gutierrez', 'Carlos', '76364012',null, null, 'agcarlos@gmail.com'),
 	('Neyra Luna', 'Liliana', '76364013','calle lima 520', '990004143', 'lilineyra12@gmail.com'),
 	('Felipa Pachas', 'Andrew', '76364014',null, '990004144', null),
-	('Abregu Sotelo', 'Yuli', '76364015','pasaje santa rita 140', null, 'yulisotelo@gmail.com')
+	('Abregu Sotelo', 'Yuli', '76364015','pasaje santa rita 140', null, 'yulisotelo@gmail.com'),
+	('Cabrera Napa', 'Anny', '73737374', NULL, NULL, NULL),
+	('Luque Ramos', 'Johan', '74747272', NULL, NULL, NULL),
+	('Lurita Chávez', 'Alexander', '73790885', NULL, NULL, NULL),
+	('Suarez Matias', 'Irene', '73727371', NULL, NULL, NULL)
 GO
 
 -- SELECT * FROM PRODUCTOS;
@@ -32,8 +36,10 @@ GO
 
 -- USUARIOS
 INSERT INTO USUARIOS (idpersona, idrol, nombreusuario, claveacceso) VALUES
-	(1,2,'PATRICIA', '$2a$06$ARAC36bi02mOka7l4snlUO0AUSJKA9sspXCAsFysLf8uoAEYTktbm'), -- 123456
-	(3,1,'LILIANA', '$2a$06$BkyhyuW1ntwos8CubstCZuFDx')	-- 123456
+	(6, 1,'ANNY', '$2a$06$ARAC36bi02mOka7l4snlUO0AUSJKA9sspXCAsFysLf8uoAEYTktbm'), -- 123456
+	(7, 1,'JOHAN', '$2a$06$BkyhyuW1ntwos8CubstCZuFDx'),	-- 123456
+	(8, 1, 'ALEXANDER', '$2a$06$Pgq2Ep7X1l.hMBzFF8aykOITEQ/psGw7KRw1yyg4brl9LuE8oBFkG'), -- 123456
+	(9, 1, 'IRENE', '$2a$06$YOiRzdxpZQekmqZbIK8YjOGwVie8NxkkMkPz/O4kXpZ0qkQICFw6G') -- 123456
 GO
 
 -- CATEGORIAS
@@ -82,8 +88,8 @@ GO
 -- VENTAS
 INSERT INTO VENTAS (idusuario, idpersona, idempresa, idtipopago, tipodocumento, nrodocumento) VALUES
 	(2, 1, NULL, 1, 'B', 'BLT0000001'),
-	(1, NULL, 1, 2, 'B', 'BLT0000002'),
-	(1, 4, NULL, 4, 'F', 'FCT0000003'),
+	(1, NULL, 1, 2, 'F', 'FCT0000002'),
+	(1, 4, NULL, 4, 'B', 'BLT0000003'),
 	(1, 3, NULL, 4, 'B', 'BLT0000004'),
 	(1, 2, NULL, 1, 'B', 'BLT0000005')
 GO

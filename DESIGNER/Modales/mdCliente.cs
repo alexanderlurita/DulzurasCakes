@@ -12,14 +12,16 @@ using BOL;
 using DESIGNER.Herramientas;
 using ENTITIES;
 
-namespace DESIGNER.Mantenimientos
+namespace DESIGNER.Modales
 {
-    public partial class MdRegistro : Form
+    public partial class mdCliente : Form
     {
         Persona persona = new Persona();
         EntPersona entPersona = new EntPersona();
 
-        public MdRegistro()
+        public string dni;
+
+        public mdCliente()
         {
             InitializeComponent();
         }
@@ -35,30 +37,36 @@ namespace DESIGNER.Mantenimientos
 
         private void btnañadir_Click(object sender, EventArgs e)
         {
-
-            
-            if (txtapellido.Text == String.Empty && txtnombre.Text == String.Empty && txtdni.Text.Trim().Length == 8)
+            if (
+                txtapellido.Text.Trim() == String.Empty || 
+                txtnombre.Text.Trim() == String.Empty || 
+                txtdni.Text.Trim().Length != 8
+                )
             {
-                Dialogo.Informar("le faltan completar los campos obligarios");
+                Dialogo.Informar("Le faltan completar los campos obligarios");
             }
             else
             {
+                entPersona.apellidos = txtapellido.Text;
+                entPersona.nombres = txtnombre.Text;
+                entPersona.dni = txtdni.Text;
+                dni = txtdni.Text;
+                entPersona.direccion = txtdireccion.Text;
+                entPersona.telefono = txttelefono.Text;
+                entPersona.email = txtcorreo.Text;
+ 
                 if (Dialogo.Preguntar("¿Guardamos Registro?") == DialogResult.Yes)
                 {
-                    entPersona.apellidos = txtapellido.Text;
-                    entPersona.nombres = txtnombre.Text;
-                    entPersona.dni = txtdni.Text;
-                    entPersona.direccion = txtdireccion.Text;
-                    entPersona.telefono = txttelefono.Text;
-                    entPersona.email = txtcorreo.Text;
-
                     if (persona.registrarPersona(entPersona) > 0)
                     {
                         limpiarForm();
-                        this.Hide();
+                        this.Close();
+                    }
+                    else
+                    {
+                        Dialogo.Error("El Cliente ya se encuentra registrado");
                     }
                 }
-                
             }
             
         }

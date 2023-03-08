@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using BOL;
 using DESIGNER.Herramientas;
+using DESIGNER.Modales;
 using ENTITIES;
 
 namespace DESIGNER.Mantenimientos
@@ -37,8 +38,8 @@ namespace DESIGNER.Mantenimientos
 
         frmDetalleVenta frmdetalleventa = new frmDetalleVenta();
 
-        MdRegistro modalcliente = new MdRegistro();
-        MdEmpresa modalempresa = new MdEmpresa();
+        mdCliente modalcliente = new mdCliente();
+        mdEmpresa modalempresa = new mdEmpresa();
 
         public frmVenta()
         {
@@ -52,14 +53,14 @@ namespace DESIGNER.Mantenimientos
 
             gridVentas.Columns["idventa"].DisplayIndex = 0;
             gridVentas.Columns["cliente"].DisplayIndex = 1;
-            gridVentas.Columns["razonsocial"].DisplayIndex = 2;
+            gridVentas.Columns["empresa"].DisplayIndex = 2;
             gridVentas.Columns["vendedor"].DisplayIndex = 3;
             gridVentas.Columns["fechaventa"].DisplayIndex = 4;
 
             //Formateando columnas
             gridVentas.Columns["idventa"].Width = 100;
             gridVentas.Columns["cliente"].Width = 200;
-            gridVentas.Columns["razonsocial"].Width = 200;
+            gridVentas.Columns["empresa"].Width = 200;
             gridVentas.Columns["vendedor"].Width = 90;
             gridVentas.Columns["fechaventa"].Width = 113;
 
@@ -87,7 +88,19 @@ namespace DESIGNER.Mantenimientos
 
         private void reiniciarDatosPago()
         {
+            btnSiguiente.Text = "Siguiente";
 
+            gridDetalles.Rows.Clear();
+            txtIgv.Clear();
+            txtNeto.Clear();
+            txtSubtotal.Clear();
+            lblNeto.Text = "S/. 0,00";
+
+            cmbMedioPago.SelectedValue = 1;
+            txtMPSubtotal.Clear();
+            txtMPIgv.Clear();
+            txtMPNeto.Clear();
+            lblMPNeto.Text = "S/. 0,00";
         }
 
         private void calcularPagos()
@@ -101,18 +114,17 @@ namespace DESIGNER.Mantenimientos
                 }
             }
 
-
-            lblNeto.Text = $"S/. {suma}";
-            txtNeto.Text = Convert.ToString(suma);
+            lblNeto.Text = $"S/. {suma.ToString("0,0.00")}";
+            txtNeto.Text = suma.ToString("0,0.00");
 
             //igv
             double neto = Convert.ToDouble(txtNeto.Text);
             double igv = neto * 0.18;
-            txtIgv.Text = Convert.ToString(igv);
+            txtIgv.Text = igv.ToString("0,0.00");
 
             //subtotal
             double subtotal = neto - igv;
-            txtSubtotal.Text = Convert.ToString(subtotal);
+            txtSubtotal.Text = subtotal.ToString("0,0.00");
         }
 
         private void frmVenta_Load(object sender, EventArgs e)
@@ -122,6 +134,7 @@ namespace DESIGNER.Mantenimientos
 
             //Asignando datos
             entVenta.tipodocumento = "B";
+            entVenta.idpersona = 0;
             entVenta.idempresa = 0;
             
             // ComboBox Producto
@@ -156,7 +169,7 @@ namespace DESIGNER.Mantenimientos
             {
                 valorBuscar = txtValorBuscado.Text.Trim();
                 dv.RowFilter = $"cliente LIKE '%{valorBuscar}%' OR " +
-                               $"razonsocial LIKE '%{valorBuscar}%' OR " +
+                               $"empresa LIKE '%{valorBuscar}%' OR " +
                                $"vendedor LIKE '%{valorBuscar}%'";
             }
             else
@@ -164,11 +177,6 @@ namespace DESIGNER.Mantenimientos
                 gridVentas.ClearSelection();
                 dt.DefaultView.RowFilter = null;
             }
-        }
-
-        private void gridVentas_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-
         }
 
         private void gridVentas_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -180,14 +188,9 @@ namespace DESIGNER.Mantenimientos
 
                 if (dtDetallesVenta.Rows.Count > 0)
                 {
+                    frmdetalleventa.idventa = entDetalleVenta.idventa;
                     frmdetalleventa.data = dtDetallesVenta;
                     frmdetalleventa.ShowDialog();
-                    //foreach (DataRow detalles in dtDetallesVenta.Rows)
-                    //{    
-                    //    neto += (float)Convert.ToDecimal(detalles["precioventa"].ToString());
-                    //}
-
-                    //Dialogo.Informar(neto.ToString());
                 }
             }
         }
@@ -208,6 +211,8 @@ namespace DESIGNER.Mantenimientos
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             reiniciarDatosCliente();
+            reiniciarDatosProductos();
+            reiniciarDatosPago();
 
             btnAtras.Visible = false;
             tbcVentas.TabPages.Clear();
@@ -224,8 +229,10 @@ namespace DESIGNER.Mantenimientos
             }
             else if (tbcDetalleVenta.SelectedTab == tbpPago)
             {
+                btnSiguiente.Text = "Siguiente";
                 tbcDetalleVenta.TabPages.Clear();
                 tbcDetalleVenta.TabPages.Add(tbpProductos);
+                cmbProductos.SelectedValue = -1;
             }
         }
 
@@ -233,6 +240,18 @@ namespace DESIGNER.Mantenimientos
         {
             if (tbcDetalleVenta.SelectedTab == tbpCliente)
             {
+                if (rbtnFactura.Checked == true)
+                {
+                    if (
+                        txtClienteOrRazonSocial.Text.Trim() == String.Empty || 
+                        txtDniOrRuc.Text.Trim() == String.Empty
+                        )
+                    {
+                        Dialogo.Informar("Debe de llenar los campos");
+                        return;
+                    }
+                }
+
                 tbcDetalleVenta.TabPages.Clear();
                 tbcDetalleVenta.TabPages.Add(tbpProductos);
                 btnAtras.Visible = true;
@@ -240,9 +259,48 @@ namespace DESIGNER.Mantenimientos
             }
             else if (tbcDetalleVenta.SelectedTab == tbpProductos)
             {
-                tbcDetalleVenta.TabPages.Clear();
-                tbcDetalleVenta.TabPages.Add(tbpPago);
-                entVenta.idtipopago = 1;
+                if (gridDetalles.Rows.Count > 0)
+                {
+                    btnSiguiente.Text = "Finalizar";
+
+                    tbcDetalleVenta.TabPages.Clear();
+                    tbcDetalleVenta.TabPages.Add(tbpPago);
+                    entVenta.idtipopago = 1;
+
+                    lblMPNeto.Text = lblNeto.Text;
+                    txtMPSubtotal.Text = txtSubtotal.Text;
+                    txtMPIgv.Text = txtIgv.Text;
+                    txtMPNeto.Text = txtNeto.Text;
+                }
+                else
+                {
+                    Dialogo.Informar("Tenga al menos un producto");
+                }
+            }
+            else
+            {
+                if (Dialogo.Preguntar("¿Finalizar venta?") == DialogResult.Yes)
+                {
+                    entVenta.idusuario = 3; //EDITAR
+                    venta.registrar(entVenta);
+
+                    DataTable dtUltimaVenta = venta.getUltimaVenta();
+                    entDetalleVenta.idventa = Convert.ToInt32(dtUltimaVenta.Rows[0][0].ToString());
+
+                    foreach (DataGridViewRow row in gridDetalles.Rows)
+                    {
+                        entDetalleVenta.idproducto = Convert.ToInt32(row.Cells["CIdProducto"].Value.ToString());
+                        entDetalleVenta.cantidad = Convert.ToInt32(row.Cells["CCantidad"].Value.ToString());
+                        entDetalleVenta.precioventa = (float)Convert.ToDecimal(row.Cells["CPrecio"].Value.ToString());
+
+                        detalleVenta.registrar(entDetalleVenta);
+                    }
+
+                    Dialogo.Informar("Venta realizada correctamente");
+
+                    btnCancelar.PerformClick();
+                    cargarDatos();
+                }
             }
         }
 
@@ -307,12 +365,39 @@ namespace DESIGNER.Mantenimientos
             {
                 modalcliente.WindowState = FormWindowState.Normal;
                 modalcliente.ShowDialog();
+
+                txtDniOrRuc.Text = modalcliente.dni;
+                if (txtDniOrRuc.Text.Trim() != String.Empty)
+                {
+                    entPersona.dni = txtDniOrRuc.Text;
+                    DataTable dt = persona.buscarPersonaDni(entPersona);
+                    txtClienteOrRazonSocial.Text = dt.Rows[0][1].ToString();
+                    entVenta.idpersona = Convert.ToInt32(dt.Rows[0][0].ToString());
+                }
             }
             else
             {
                 modalempresa.WindowState = FormWindowState.Normal;
                 modalempresa.ShowDialog();
+
+                txtDniOrRuc.Text = modalempresa.ruc;
+                if (txtDniOrRuc.Text.Trim() != String.Empty)
+                {
+                    entEmpresa.ruc = txtDniOrRuc.Text;
+                    DataTable dt = empresa.buscarEmpresa(entEmpresa);
+                    txtClienteOrRazonSocial.Text = dt.Rows[0][1].ToString();
+                    entVenta.idempresa = Convert.ToInt32(dt.Rows[0][0].ToString());
+                }
             }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtClienteOrRazonSocial.Clear();
+            txtDniOrRuc.Clear();
+
+            entVenta.idpersona = 0;
+            entVenta.idempresa = 0;
         }
 
         private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -380,26 +465,6 @@ namespace DESIGNER.Mantenimientos
                 gridDetalles.Rows.RemoveAt(entVenta.idventa);
                 calcularPagos();
             }
-        }
-
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
-            entVenta.idusuario = 1;
-            venta.registrar(entVenta);
-
-            DataTable dtUltimaVenta = venta.getUltimaVenta();
-            entDetalleVenta.idventa = Convert.ToInt32(dtUltimaVenta.Rows[0][0].ToString());
-
-            foreach (DataGridViewRow row in gridDetalles.Rows)
-            {
-                entDetalleVenta.idproducto = Convert.ToInt32(row.Cells["CIdProducto"].Value.ToString());
-                entDetalleVenta.cantidad = Convert.ToInt32(row.Cells["CCantidad"].Value.ToString());
-                entDetalleVenta.precioventa = (float)Convert.ToDecimal(row.Cells["CPrecio"].Value.ToString());
-
-                detalleVenta.registrar(entDetalleVenta);
-            }
-
-            Dialogo.Informar("Venta realizada correctamente");
         }
 
         private void cmbMedioPago_SelectedIndexChanged(object sender, EventArgs e)

@@ -56,6 +56,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.gridDetalles = new System.Windows.Forms.DataGridView();
+            this.CIdProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CImporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbcVentas = new System.Windows.Forms.TabControl();
             this.tbpVentas = new System.Windows.Forms.TabPage();
             this.btnActualizar = new System.Windows.Forms.Button();
@@ -63,6 +68,7 @@
             this.txtValorBuscado = new System.Windows.Forms.TextBox();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.gridVentas = new System.Windows.Forms.DataGridView();
+            this.Detalles = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tbpNuevaVenta = new System.Windows.Forms.TabPage();
             this.btnAtras = new System.Windows.Forms.Button();
             this.tbcDetalleVenta = new System.Windows.Forms.TabControl();
@@ -79,13 +85,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtIdProducto = new System.Windows.Forms.TextBox();
             this.tbpPago = new System.Windows.Forms.TabPage();
-            this.btnFinalizar = new System.Windows.Forms.Button();
-            this.Detalles = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CIdProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CImporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblMPNeto = new System.Windows.Forms.Label();
+            this.txtMPIgv = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtMPNeto = new System.Windows.Forms.TextBox();
+            this.txtMPSubtotal = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridDetalles)).BeginInit();
             this.tbcVentas.SuspendLayout();
             this.tbpVentas.SuspendLayout();
@@ -99,6 +107,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.panel1.SuspendLayout();
             this.tbpPago.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rbtnBoleta
@@ -401,6 +410,38 @@
             this.gridDetalles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridDetalles_CellClick);
             this.gridDetalles.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.gridDetalles_CellPainting);
             // 
+            // CIdProducto
+            // 
+            this.CIdProducto.HeaderText = "ID";
+            this.CIdProducto.Name = "CIdProducto";
+            this.CIdProducto.ReadOnly = true;
+            this.CIdProducto.Width = 50;
+            // 
+            // CProducto
+            // 
+            this.CProducto.HeaderText = "Producto";
+            this.CProducto.Name = "CProducto";
+            this.CProducto.ReadOnly = true;
+            // 
+            // CPrecio
+            // 
+            this.CPrecio.HeaderText = "Precio unitario";
+            this.CPrecio.Name = "CPrecio";
+            this.CPrecio.ReadOnly = true;
+            this.CPrecio.Width = 150;
+            // 
+            // CCantidad
+            // 
+            this.CCantidad.HeaderText = "Cantidad";
+            this.CCantidad.Name = "CCantidad";
+            this.CCantidad.ReadOnly = true;
+            // 
+            // CImporte
+            // 
+            this.CImporte.HeaderText = "Importe";
+            this.CImporte.Name = "CImporte";
+            this.CImporte.ReadOnly = true;
+            // 
             // tbcVentas
             // 
             this.tbcVentas.Controls.Add(this.tbpVentas);
@@ -485,7 +526,14 @@
             this.gridVentas.Size = new System.Drawing.Size(830, 297);
             this.gridVentas.TabIndex = 0;
             this.gridVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridVentas_CellClick);
-            this.gridVentas.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.gridVentas_CellPainting);
+            // 
+            // Detalles
+            // 
+            this.Detalles.HeaderText = "Detalles";
+            this.Detalles.Name = "Detalles";
+            this.Detalles.ReadOnly = true;
+            this.Detalles.Text = "ver";
+            this.Detalles.UseColumnTextForButtonValue = true;
             // 
             // tbpNuevaVenta
             // 
@@ -528,6 +576,7 @@
             // 
             // tbpCliente
             // 
+            this.tbpCliente.Controls.Add(this.btnLimpiar);
             this.tbpCliente.Controls.Add(this.btnAnadir);
             this.tbpCliente.Controls.Add(this.groupBox1);
             this.tbpCliente.Controls.Add(this.label11);
@@ -547,9 +596,9 @@
             // 
             // btnAnadir
             // 
-            this.btnAnadir.Location = new System.Drawing.Point(437, 128);
+            this.btnAnadir.Location = new System.Drawing.Point(460, 127);
             this.btnAnadir.Name = "btnAnadir";
-            this.btnAnadir.Size = new System.Drawing.Size(75, 23);
+            this.btnAnadir.Size = new System.Drawing.Size(75, 24);
             this.btnAnadir.TabIndex = 21;
             this.btnAnadir.Text = "añadir";
             this.btnAnadir.UseVisualStyleBackColor = true;
@@ -655,7 +704,7 @@
             this.lblNeto.Name = "lblNeto";
             this.lblNeto.Size = new System.Drawing.Size(249, 40);
             this.lblNeto.TabIndex = 34;
-            this.lblNeto.Text = "S/. NETO";
+            this.lblNeto.Text = "S/. 0,00";
             this.lblNeto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label12
@@ -686,7 +735,7 @@
             // 
             // tbpPago
             // 
-            this.tbpPago.Controls.Add(this.btnFinalizar);
+            this.tbpPago.Controls.Add(this.panel2);
             this.tbpPago.Controls.Add(this.cmbMedioPago);
             this.tbpPago.Controls.Add(this.label1);
             this.tbpPago.Location = new System.Drawing.Point(4, 26);
@@ -698,55 +747,99 @@
             this.tbpPago.Text = "Método de pago";
             this.tbpPago.UseVisualStyleBackColor = true;
             // 
-            // btnFinalizar
+            // panel2
             // 
-            this.btnFinalizar.Location = new System.Drawing.Point(885, 351);
-            this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(108, 37);
-            this.btnFinalizar.TabIndex = 8;
-            this.btnFinalizar.Text = "Finalizar";
-            this.btnFinalizar.UseVisualStyleBackColor = true;
-            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.Controls.Add(this.lblMPNeto);
+            this.panel2.Controls.Add(this.txtMPIgv);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.txtMPNeto);
+            this.panel2.Controls.Add(this.txtMPSubtotal);
+            this.panel2.Controls.Add(this.label15);
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(790, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(249, 420);
+            this.panel2.TabIndex = 36;
             // 
-            // Detalles
+            // lblMPNeto
             // 
-            this.Detalles.HeaderText = "Detalles";
-            this.Detalles.Name = "Detalles";
-            this.Detalles.ReadOnly = true;
-            this.Detalles.Text = "ver";
-            this.Detalles.UseColumnTextForButtonValue = true;
+            this.lblMPNeto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblMPNeto.Font = new System.Drawing.Font("Century Gothic", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMPNeto.Location = new System.Drawing.Point(0, 0);
+            this.lblMPNeto.Name = "lblMPNeto";
+            this.lblMPNeto.Size = new System.Drawing.Size(249, 40);
+            this.lblMPNeto.TabIndex = 34;
+            this.lblMPNeto.Text = "S/. 0,00";
+            this.lblMPNeto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // CIdProducto
+            // txtMPIgv
             // 
-            this.CIdProducto.HeaderText = "ID";
-            this.CIdProducto.Name = "CIdProducto";
-            this.CIdProducto.ReadOnly = true;
-            this.CIdProducto.Width = 50;
+            this.txtMPIgv.Location = new System.Drawing.Point(99, 202);
+            this.txtMPIgv.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMPIgv.Name = "txtMPIgv";
+            this.txtMPIgv.ReadOnly = true;
+            this.txtMPIgv.Size = new System.Drawing.Size(132, 23);
+            this.txtMPIgv.TabIndex = 11;
             // 
-            // CProducto
+            // label14
             // 
-            this.CProducto.HeaderText = "Producto";
-            this.CProducto.Name = "CProducto";
-            this.CProducto.ReadOnly = true;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 163);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(66, 17);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Subtotal:";
             // 
-            // CPrecio
+            // txtMPNeto
             // 
-            this.CPrecio.HeaderText = "Precio unitario";
-            this.CPrecio.Name = "CPrecio";
-            this.CPrecio.ReadOnly = true;
-            this.CPrecio.Width = 150;
+            this.txtMPNeto.Location = new System.Drawing.Point(99, 249);
+            this.txtMPNeto.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMPNeto.Name = "txtMPNeto";
+            this.txtMPNeto.ReadOnly = true;
+            this.txtMPNeto.Size = new System.Drawing.Size(132, 23);
+            this.txtMPNeto.TabIndex = 13;
             // 
-            // CCantidad
+            // txtMPSubtotal
             // 
-            this.CCantidad.HeaderText = "Cantidad";
-            this.CCantidad.Name = "CCantidad";
-            this.CCantidad.ReadOnly = true;
+            this.txtMPSubtotal.Location = new System.Drawing.Point(99, 160);
+            this.txtMPSubtotal.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMPSubtotal.Name = "txtMPSubtotal";
+            this.txtMPSubtotal.ReadOnly = true;
+            this.txtMPSubtotal.Size = new System.Drawing.Size(132, 23);
+            this.txtMPSubtotal.TabIndex = 9;
             // 
-            // CImporte
+            // label15
             // 
-            this.CImporte.HeaderText = "Importe";
-            this.CImporte.Name = "CImporte";
-            this.CImporte.ReadOnly = true;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(9, 205);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(35, 17);
+            this.label15.TabIndex = 10;
+            this.label15.Text = "IGV:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 252);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 17);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Neto:";
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(438, 127);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(28, 24);
+            this.btnLimpiar.TabIndex = 22;
+            this.btnLimpiar.Text = "x";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // frmVenta
             // 
@@ -779,6 +872,8 @@
             this.panel1.PerformLayout();
             this.tbpPago.ResumeLayout(false);
             this.tbpPago.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -833,7 +928,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblNeto;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.NumericUpDown nudCantidad;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.DataGridViewButtonColumn Detalles;
@@ -842,5 +936,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CPrecio;
         private System.Windows.Forms.DataGridViewTextBoxColumn CCantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn CImporte;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblMPNeto;
+        private System.Windows.Forms.TextBox txtMPIgv;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtMPNeto;
+        private System.Windows.Forms.TextBox txtMPSubtotal;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

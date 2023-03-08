@@ -12,13 +12,16 @@ using BOL;
 using DESIGNER.Herramientas;
 using ENTITIES;
 
-namespace DESIGNER
+namespace DESIGNER.Modales
 {
-    public partial class MdEmpresa : Form
+    public partial class mdEmpresa : Form
     {
         Empresa empresa = new Empresa();
         EntEmpresa entEmpresa = new EntEmpresa();
-        public MdEmpresa()
+
+        public string ruc;
+
+        public mdEmpresa()
         {
             InitializeComponent();
         }
@@ -33,28 +36,35 @@ namespace DESIGNER
 
         private void btnañadir_Click(object sender, EventArgs e)
         {
-            if (txtrazonsocial.Text == String.Empty && txtruc.Text.Trim().Length == 11)
+            if (    
+                txtrazonsocial.Text.Trim() == String.Empty || 
+                txtruc.Text.Trim().Length != 11
+                )
             {
                 Dialogo.Informar("le faltan completar los campos obligarios");
             }
             else
             {
+                entEmpresa.razonSocial = txtrazonsocial.Text;
+                entEmpresa.ruc = txtruc.Text;
+                ruc = txtruc.Text;
+                entEmpresa.direccion = txtdireccion.Text;
+                entEmpresa.telefono = txttelefono.Text;
+                entEmpresa.email = txtcorreo.Text; 
                 if (Dialogo.Preguntar("¿Guardamos Registro?") == DialogResult.Yes)
                 {
-                    entEmpresa.razonSocial = txtrazonsocial.Text;
-                    entEmpresa.ruc = txtruc.Text;
-                    entEmpresa.direccion = txtdireccion.Text;
-                    entEmpresa.telefono = txttelefono.Text;
-                    entEmpresa.email = txtcorreo.Text;
-
                     if (empresa.registrarEmpresa(entEmpresa) > 0)
                     {
                         limpiarForm();
-                        this.Hide();
+                        this.Close();
+                    }
+                    else
+                    {
+                        Dialogo.Error("El ruc ya existe");
                     }
                 }
-
             }
         }
+
     }
 }

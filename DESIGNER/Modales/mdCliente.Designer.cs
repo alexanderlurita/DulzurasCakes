@@ -1,6 +1,6 @@
-﻿namespace DESIGNER.Mantenimientos
+﻿namespace DESIGNER.Modales
 {
-    partial class MdRegistro
+    partial class mdCliente
     {
         /// <summary>
         /// Required designer variable.

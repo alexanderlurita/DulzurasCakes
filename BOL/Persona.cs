@@ -27,7 +27,6 @@ namespace BOL
             command.CommandType = CommandType.StoredProcedure;
             try
             {
-
                 acceso.conectar();
                 command.Parameters.AddWithValue("@apellidos", entPersona.apellidos);
                 command.Parameters.AddWithValue("@nombres", entPersona.nombres);

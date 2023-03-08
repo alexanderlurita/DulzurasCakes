@@ -452,7 +452,7 @@ GO
 -- LISTAR
 CREATE PROCEDURE SPU_VENTAS_LISTAR
 AS BEGIN
-	SELECT	VEN.idventa, PER.apellidos+' '+PER.nombres 'cliente', EMP.razonsocial,
+	SELECT	VEN.idventa, PER.apellidos+' '+PER.nombres 'cliente', EMP.razonsocial 'empresa',
 			USU.nombreusuario 'vendedor', VEN.fechaventa
 		FROM VENTAS VEN
 		INNER JOIN USUARIOS USU ON VEN.idusuario = USU.idusuario
@@ -477,8 +477,9 @@ GO
 -- TRAE EL ID DE LA ULTIMA VENTA
 CREATE PROCEDURE SPU_VENTAS_ULTIMA_VENTA
 AS BEGIN
-	SELECT MAX(idventa) AS idultimaventa
+	SELECT TOP 1 * 
 		FROM VENTAS
+		ORDER BY idventa DESC
 END
 GO
 
@@ -507,29 +508,6 @@ AS BEGIN
 END
 GO
 
--- EDITAR
-CREATE PROCEDURE SPU_VENTAS_EDITAR
-@idventa			INT,
-@idpersona			INT,
-@idempresa			INT,
-@idusuario			INT,
-@idtipopago			INT,
-@tipodocumento		CHAR(1),
-@nrodocumento		CHAR(11),
-@fechaventa			DATETIME
-AS BEGIN
-	UPDATE VENTAS SET
-		idpersona = @idpersona,
-		idempresa = @idempresa,
-		idusuario = @idusuario,
-		idtipopago = @idtipopago,
-		tipodocumento = @tipodocumento,
-		nrodocumento = @nrodocumento,
-		fechaventa = @fechaventa
-	WHERE idventa = @idventa
-END
-GO
-
 ------------------------------------
 -- DETALLE_VENTAS
 -- LISTAR DETALLES DE UNA VENTA
@@ -543,7 +521,8 @@ AS BEGIN
 		WHERE DET.idventa = @idventa
 END
 GO
-
+-- SELECT * FROM TIPO_pagos
+-- SELECT * FROM VENTAS
 -- EXEC SPU_DETVENTA_LISTAR_DETALLES_VENTA 1
 
 -- REGISTRAR
