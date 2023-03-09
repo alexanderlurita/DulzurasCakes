@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DESIGNER.Mantenimientos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,22 +13,34 @@ namespace DESIGNER
 {
     public partial class Dashboard : Form
     {
-        DateTime fechaactual;
+        frmVenta ventas = new frmVenta();
+
         public Dashboard()
         {
             InitializeComponent();
         }
-        private void timer1_Tick_1(object sender, EventArgs e)
+
+        private void limpiarPanel()
         {
-            fechaactual = DateTime.Now;
-            FECHA.Text = fechaactual.ToLongDateString();
-            HORA.Text = fechaactual.ToShortTimeString();
+            if (this.pnlContenido.Controls.Count > 0)
+            {
+                this.pnlContenido.Controls.RemoveAt(0);
+            }
+            btnVentas.BackColor = Color.FromArgb(246, 247, 249);
         }
 
-        private void Dashboard_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnVentas_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            limpiarPanel();
+            btnVentas.BackColor = Color.FromArgb(255, 231, 231);
+            ventas.TopLevel = false;
+            pnlContenido.Controls.Add(ventas);
+            ventas.Show();
         }
 
+        private void bntCerrar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

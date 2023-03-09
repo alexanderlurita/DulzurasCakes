@@ -73,6 +73,7 @@
             this.btnAtras = new System.Windows.Forms.Button();
             this.tbcDetalleVenta = new System.Windows.Forms.TabControl();
             this.tbpCliente = new System.Windows.Forms.TabPage();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnAnadir = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -93,7 +94,6 @@
             this.txtMPSubtotal = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridDetalles)).BeginInit();
             this.tbcVentas.SuspendLayout();
             this.tbpVentas.SuspendLayout();
@@ -594,6 +594,16 @@
             this.tbpCliente.Text = "Datos del cliente";
             this.tbpCliente.UseVisualStyleBackColor = true;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(438, 127);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(28, 24);
+            this.btnLimpiar.TabIndex = 22;
+            this.btnLimpiar.Text = "x";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // btnAnadir
             // 
             this.btnAnadir.Location = new System.Drawing.Point(460, 127);
@@ -831,16 +841,6 @@
             this.label16.TabIndex = 12;
             this.label16.Text = "Neto:";
             // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(438, 127);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(28, 24);
-            this.btnLimpiar.TabIndex = 22;
-            this.btnLimpiar.Text = "x";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -848,6 +848,7 @@
             this.ClientSize = new System.Drawing.Size(1067, 588);
             this.Controls.Add(this.tbcVentas);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

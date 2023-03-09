@@ -63,6 +63,26 @@ namespace DESIGNER.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dulzurascakes {
+            get {
+                object obj = ResourceManager.GetObject("dulzurascakes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DulzurasCakes_logo {
+            get {
+                object obj = ResourceManager.GetObject("DulzurasCakes_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MicrosoftTeams_image__1_ {
             get {
                 object obj = ResourceManager.GetObject("MicrosoftTeams-image (1)", resourceCulture);
@@ -76,6 +96,16 @@ namespace DESIGNER.Properties {
         internal static System.Drawing.Bitmap MicrosoftTeams_image__2_ {
             get {
                 object obj = ResourceManager.GetObject("MicrosoftTeams-image (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MicrosoftTeams_image__3_ {
+            get {
+                object obj = ResourceManager.GetObject("MicrosoftTeams-image (3)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

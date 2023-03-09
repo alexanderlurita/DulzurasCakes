@@ -450,7 +450,7 @@ namespace DESIGNER.Mantenimientos
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celbutton = gridDetalles.Rows[e.RowIndex].Cells["Eliminar"] as DataGridViewButtonCell;
-                Icon icono = new Icon(Environment.CurrentDirectory + @"\borrar.ico");
+                Icon icono = new Icon(Environment.CurrentDirectory + @"\..\..\Resources\borrar.ico");
                 e.Graphics.DrawIcon(icono, e.CellBounds.Left + 25, e.CellBounds.Top + 5);
                 gridDetalles.Rows[e.RowIndex].Height = icono.Height + 8;
                 gridDetalles.Columns[e.ColumnIndex].Width = icono.Width + 50;
