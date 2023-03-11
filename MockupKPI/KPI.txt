@@ -1,0 +1,11 @@
+1. Cuantas ventas realizo cada usuario durante el ultimo mes
+
+1.1  Que dias de la semana aumenta mas la ventas
+
+
+1.2Cual fueron los producto mas vendido durante la ultima semana
+
+
+1.3Cuantos productos se elaboraron el dia de hoy
+
+

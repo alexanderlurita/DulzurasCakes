@@ -57,7 +57,7 @@
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(154, 28);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 5;
             this.label2.Text = "BIENVENIDO";
             // 
             // label3
@@ -68,7 +68,7 @@
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 17);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Usuario:";
             // 
             // label4
@@ -79,7 +79,7 @@
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 17);
-            this.label4.TabIndex = 3;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Contraseña:";
             // 
             // txtNombreusuario
@@ -94,7 +94,7 @@
             this.txtNombreusuario.MaxLength = 30;
             this.txtNombreusuario.Name = "txtNombreusuario";
             this.txtNombreusuario.Size = new System.Drawing.Size(208, 16);
-            this.txtNombreusuario.TabIndex = 4;
+            this.txtNombreusuario.TabIndex = 1;
             // 
             // txtcontraseña
             // 
@@ -106,7 +106,7 @@
             this.txtcontraseña.Name = "txtcontraseña";
             this.txtcontraseña.PasswordChar = '*';
             this.txtcontraseña.Size = new System.Drawing.Size(208, 16);
-            this.txtcontraseña.TabIndex = 5;
+            this.txtcontraseña.TabIndex = 3;
             this.txtcontraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcontraseña_KeyPress);
             // 
             // btniniciosesion
@@ -122,7 +122,7 @@
             this.btniniciosesion.Margin = new System.Windows.Forms.Padding(4);
             this.btniniciosesion.Name = "btniniciosesion";
             this.btniniciosesion.Size = new System.Drawing.Size(237, 30);
-            this.btniniciosesion.TabIndex = 6;
+            this.btniniciosesion.TabIndex = 4;
             this.btniniciosesion.Text = "Login";
             this.btniniciosesion.UseVisualStyleBackColor = false;
             this.btniniciosesion.Click += new System.EventHandler(this.btniniciosesion_Click);
@@ -150,7 +150,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Size = new System.Drawing.Size(803, 441);
             this.splitContainer1.SplitterDistance = 462;
-            this.splitContainer1.TabIndex = 12;
+            this.splitContainer1.TabIndex = 0;
             // 
             // pictureBox4
             // 

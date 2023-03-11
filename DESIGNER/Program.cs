@@ -11,12 +11,14 @@ namespace DESIGNER
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
+        public static Login login;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Mantenimientos.frmVenta());
+            //Application.Run(new Dashboard());
+            Application.Run(login = new Login());
         }
     }
 }

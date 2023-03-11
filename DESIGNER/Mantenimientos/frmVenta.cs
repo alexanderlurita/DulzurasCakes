@@ -130,6 +130,28 @@ namespace DESIGNER.Mantenimientos
             txtSubtotal.Text = subtotal.ToString("0,0.00");
         }
 
+        private void generarReporte(string tipo)
+        {
+            SaveFileDialog dialogo = new SaveFileDialog();
+
+            dialogo.Title = "Exportar reporte como" + tipo.ToUpper();
+            dialogo.Filter = "Documento Digital|*." + tipo;
+            dialogo.FileName = "Reporte de Entregas ";
+
+            if (dialogo.ShowDialog() == DialogResult.OK)
+            {
+                Reportes.ReporteVentas reporte = new Reportes.ReporteVentas();
+                if (tipo == "pdf")
+                {
+                    reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, dialogo.FileName);
+                }
+                else if (tipo == "xlsx")
+                {
+                    reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.ExcelWorkbook, dialogo.FileName);
+                }
+            }
+        }
+
         private void frmVenta_Load(object sender, EventArgs e)
         {
             cargarDatos();
@@ -209,6 +231,11 @@ namespace DESIGNER.Mantenimientos
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             cargarDatos();
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            generarReporte("pdf");
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -510,5 +537,6 @@ namespace DESIGNER.Mantenimientos
             entVenta.idtipopago = Convert.ToInt16(cmbMedioPago.SelectedValue.ToString());
         }
 
+        
     }
 }
