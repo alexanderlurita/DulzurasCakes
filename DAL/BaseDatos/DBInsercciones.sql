@@ -5,11 +5,11 @@ GO
 
 -- PERSONAS
 INSERT INTO PERSONAS (apellidos, nombres, dni, direccion, telefono, email) VALUES
-	('Tasayco Pachas', 'Patricia', '76364011','av rosales 258', '990004142', 'tasaycopatricia@gmail.com'),
+	('Tasayco Pachas', 'Patricia', '76364011','Av. Rosales 258', '990004142', 'tasaycopatricia@gmail.com'),
 	('Atuncar Gutierrez', 'Carlos', '76364012',null, null, 'agcarlos@gmail.com'),
-	('Neyra Luna', 'Liliana', '76364013','calle lima 520', '990004143', 'lilineyra12@gmail.com'),
+	('Neyra Luna', 'Liliana', '76364013','Calle lima 520', '990004143', 'lilineyra12@gmail.com'),
 	('Felipa Pachas', 'Andrew', '76364014',null, '990004144', null),
-	('Abregu Sotelo', 'Yuli', '76364015','pasaje santa rita 140', null, 'yulisotelo@gmail.com'),
+	('Abregu Sotelo', 'Yuli', '76364015','Pasaje Santa Rita 140', null, 'yulisotelo@gmail.com'),
 	('Cabrera Napa', 'Anny', '73737374', NULL, NULL, NULL),
 	('Luque Ramos', 'Johan', '74747272', NULL, NULL, NULL),
 	('Lurita Chávez', 'Alexander', '73790885', NULL, NULL, NULL),
@@ -24,7 +24,7 @@ GO
 INSERT INTO EMPRESAS(razonsocial, ruc, direccion, telefono, email) VALUES
 	('AGROLIGHT PERU S.A.C.','20552103816',  NULL, '999999999', 'AGROLIGHT@GMAIL.COM'),
 	('AGROSORIA E.I.R.L','20538856674',  NULL, '999999999', 'AGROSORIA@GMAIL.COM'),
-	( 'AGRINOVA DEL PERU S.R.L','20553856451', NULL, '999999999', 'AGRINOVA@GMAIL.COM'),
+	('AGRINOVA DEL PERU S.R.L','20553856451', NULL, '999999999', 'AGRINOVA@GMAIL.COM'),
 	('BI GRAND CONFECCIONES S.A.C.', '20480316259', NULL, '999999999', 'BIGRANDCONFECCIONES@GMAIL.COM')
 GO
 
@@ -54,27 +54,27 @@ GO
 
 -- PRODUCTOS
 INSERT INTO PRODUCTOS (idcategoria, nombreproducto, descripcion, precio, stock) VALUES
-	(2, 'Mini Torta', 'Chocolate, cremam volteada', 45.0, 6),
+	(2, 'Mini Torta', 'Chocolate, crema volteada', 45.0, 6),
 	(3, 'Queque', NULL, 2.0, 12),
 	(4, 'ChocoChip', 'Chocolate con pecas', 1.5, 20),
 	(1, 'Arroz con leche', NULL, 5.0, 20),
 	(1, 'Gelatina', 'Con flan', 2.0, 15)
 GO
 INSERT INTO PRODUCTOS (idcategoria, nombreproducto, descripcion, precio, stock) VALUES
-	(1, 'Brownie', 'Porción bañado en chocolate con pecanas', 3.5, 9),
+	(1, 'Brownie', 'Porción bañado en chocolate con pecanas', 3.5, 20),
 	(1, 'Pye de manzana', 'Porción', 3.50, 12),
 	(1, 'Chessecake', 'Porción sabor a maracuya', 6.50, 15),
 	(1, 'Torta de galleta', 'Porción, sabor chocolate y vainilla', 3.50, 20),
 	(1, 'Torta de chocolate', 'Porción, Rellena y bañada con fudge', 6, 12),
-	(2, 'Torta tres leches', 'Torta de 1/2 kg',65.00 , 4),
-	(2, 'Torta de chocolate', 'Torta de 1/2 kg', 68.00, 4),
-	(2, 'Torta selva negra', 'Torta de 1/2 kg', 58, 4),
+	(2, 'Torta tres leches', 'Torta de 1/2 kg',65.00 , 13),
+	(2, 'Torta de chocolate', 'Torta de 1/2 kg', 68.00, 21),
+	(2, 'Torta selva negra', 'Torta de 1/2 kg', 58, 8),
 	(2, 'Carrot Cake', 'Torta de 1/2 kg', 58, 12),
 	(2, 'Pye de manzana', 'Tamaño mediano', 6, 12),
-	(6, 'Pitipanes', '25 unidades',23, 2),
-	(6, 'Cocadas', '25 unidades', 18, 3),
-	(6, 'Piernitas y alitas', '25 unidades', 35, 3),
-	(6, 'Empanadas de pollo', '25 unidades', 22, 5)
+	(6, 'Pitipanes', '25 unidades',23, 11),
+	(6, 'Cocadas', '25 unidades', 18, 11),
+	(6, 'Piernitas y alitas', '25 unidades', 35, 15),
+	(6, 'Empanadas de pollo', '25 unidades', 22, 7)
 GO
 
 -- TIPO_PAGOS
@@ -86,12 +86,17 @@ INSERT INTO TIPO_PAGOS (tipopago) VALUES
 GO
 
 -- VENTAS
-INSERT INTO VENTAS (idusuario, idpersona, idempresa, idtipopago, tipodocumento, nrodocumento) VALUES
-	(2, 1, NULL, 1, 'B', 'BLT0000001'),
-	(1, NULL, 1, 2, 'F', 'FCT0000002'),
-	(1, 4, NULL, 4, 'B', 'BLT0000003'),
-	(1, 3, NULL, 4, 'B', 'BLT0000004'),
-	(1, 2, NULL, 1, 'B', 'BLT0000005')
+INSERT INTO VENTAS (idpersona, idempresa, idusuario, idtipopago, tipodocumento, nrodocumento) VALUES
+	(1, NULL, 1, 1, 'B', 'BLT0000001'),
+	(NULL, 1, 1, 2, 'F', 'FCT0000002'),
+	(4, NULL, 2, 4, 'B', 'BLT0000003'),
+	(3, NULL, 3, 4, 'B', 'BLT0000004'),
+	(2, NULL, 2, 1, 'B', 'BLT0000005'),
+	(2, NULL, 3, 3, 'B', 'BLT0000006'),
+	(5, NULL, 4, 3, 'B', 'BLT0000007'),
+	(NULL, 2, 1, 1, 'B', 'FCT0000008'),
+	(3, NULL, 4, 1, 'B', 'BLT0000009'),
+	(NULL, 4, 2, 2, 'B', 'FCT0000010')
 GO
 
 -- DETALLE_VENTAS
@@ -126,7 +131,17 @@ INSERT INTO DETALLE_VENTAS (idventa, idproducto, cantidad, precioventa) VALUES
 	(5, 3, 6, 1.5),
 	(5, 1, 2, 45.5),
 	(5, 2, 2, 2.0),
-	(5, 5, 4, 2.0)
+	(6, 5, 4, 2.0),
+	(6, 1, 2, 45.5),
+	(6, 2, 2, 2.0),
+	(7, 5, 4, 2.0),
+	(7, 1, 2, 45.5),
+	(8, 2, 2, 2.0),
+	(9, 5, 4, 2.0),
+	(9, 1, 2, 45.5),
+	(9, 2, 10, 2.0),
+	(9, 5, 10, 2.0),
+	(10, 1, 3, 45.5)
 GO
 
 USE master

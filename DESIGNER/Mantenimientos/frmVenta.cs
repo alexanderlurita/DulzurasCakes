@@ -88,13 +88,16 @@ namespace DESIGNER.Mantenimientos
 
         private void reiniciarDatosPago()
         {
-            btnSiguiente.Text = "Siguiente";
+            btnSiguiente.Text = "SIGUIENTE";
 
             gridDetalles.Rows.Clear();
             txtIgv.Clear();
             txtNeto.Clear();
             txtSubtotal.Clear();
             lblNeto.Text = "S/. 0,00";
+
+            gridResumen.Columns.Clear();
+            gridResumen.Rows.Clear();
 
             cmbMedioPago.SelectedValue = 1;
             txtMPSubtotal.Clear();
@@ -229,10 +232,13 @@ namespace DESIGNER.Mantenimientos
             }
             else if (tbcDetalleVenta.SelectedTab == tbpPago)
             {
-                btnSiguiente.Text = "Siguiente";
+                btnSiguiente.Text = "SIGUIENTE";
                 tbcDetalleVenta.TabPages.Clear();
                 tbcDetalleVenta.TabPages.Add(tbpProductos);
                 cmbProductos.SelectedValue = -1;
+
+                gridResumen.Columns.Clear();
+                gridResumen.Rows.Clear();
             }
         }
 
@@ -261,11 +267,33 @@ namespace DESIGNER.Mantenimientos
             {
                 if (gridDetalles.Rows.Count > 0)
                 {
-                    btnSiguiente.Text = "Finalizar";
+                    btnSiguiente.Text = "FINALIZAR";
 
                     tbcDetalleVenta.TabPages.Clear();
                     tbcDetalleVenta.TabPages.Add(tbpPago);
                     entVenta.idtipopago = 1;
+
+                    foreach (DataGridViewColumn cw in gridDetalles.Columns)
+                    {
+                        if (cw.HeaderText != "Eliminar")
+                        {
+                            gridResumen.Columns.Add(cw.Name, cw.HeaderText);                        
+                        }
+                    }
+                    foreach (DataGridViewRow rw in gridDetalles.Rows)
+                    {
+                        gridResumen.Rows.Add(
+                            rw.Cells["CIdProducto"].Value.ToString(),
+                            rw.Cells["CProducto"].Value.ToString(),
+                            rw.Cells["CPrecio"].Value.ToString(),
+                            rw.Cells["CCantidad"].Value.ToString(),
+                            rw.Cells["CImporte"].Value.ToString()
+                        );
+                    }
+
+                    txtRClienteOrRazonSocial.Text = txtClienteOrRazonSocial.Text;
+                    txtRDniOrRuc.Text = txtDniOrRuc.Text;
+                    txtRComprobante.Text = lblBoletaFactura.Text;
 
                     lblMPNeto.Text = lblNeto.Text;
                     txtMPSubtotal.Text = txtSubtotal.Text;
@@ -309,6 +337,7 @@ namespace DESIGNER.Mantenimientos
             reiniciarDatosCliente();
             entVenta.tipodocumento = "B";
             entVenta.idempresa = 0;
+            lblBoletaFactura.Text = "BOLETA";
             lblDni.Text = "DNI:";
             txtDniOrRuc.MaxLength = 8;
             lblCliente.Text = "Cliente:";
@@ -319,6 +348,7 @@ namespace DESIGNER.Mantenimientos
             reiniciarDatosCliente();
             entVenta.tipodocumento = "F";
             entVenta.idpersona = 0;
+            lblBoletaFactura.Text = "FACTURA";
             lblDni.Text = "RUC:";
             txtDniOrRuc.MaxLength = 11;
             lblCliente.Text = "Razón Social:";
@@ -356,6 +386,14 @@ namespace DESIGNER.Mantenimientos
                         Dialogo.Error("No existe en la base de datos.");
                     }
                 }
+            }
+        }
+
+        private void txtDniOrRuc_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtDniOrRuc.Text, "[^0-9]"))
+            {
+                txtDniOrRuc.Text = txtDniOrRuc.Text.Remove(txtDniOrRuc.Text.Length - 1);
             }
         }
 
@@ -472,6 +510,5 @@ namespace DESIGNER.Mantenimientos
             entVenta.idtipopago = Convert.ToInt16(cmbMedioPago.SelectedValue.ToString());
         }
 
-        
     }
 }

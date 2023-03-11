@@ -166,6 +166,9 @@
     <EmbeddedResource Include="Modales\mdCliente.resx">
       <DependentUpon>mdCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modales\mdEmpresa.resx">
+      <DependentUpon>mdEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -217,6 +220,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MicrosoftTeams-image %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\programador.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %289%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

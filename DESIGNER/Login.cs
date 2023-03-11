@@ -42,6 +42,8 @@ namespace DESIGNER
                 {
                     Dialogo.Informar("iniciando.....");
                     Dashboard dashboard = new Dashboard();
+                    dashboard.lblUsuario.Text = entUsuario.nombreusuario;
+                    dashboard.lblrol.Text = tabla.Rows[0][5].ToString();
                     dashboard.Show();
                     this.Hide();
                 }
@@ -60,6 +62,14 @@ namespace DESIGNER
         {
             Application.Exit();
         }
+
+
+
+        private void txtcontraseña_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
 
     }
 }

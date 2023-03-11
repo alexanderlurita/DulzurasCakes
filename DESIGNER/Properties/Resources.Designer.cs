@@ -63,6 +63,16 @@ namespace DESIGNER.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Diseño_sin_título__9_ {
+            get {
+                object obj = ResourceManager.GetObject("Diseño sin título (9)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dulzurascakes {
             get {
                 object obj = ResourceManager.GetObject("dulzurascakes", resourceCulture);
@@ -106,6 +116,16 @@ namespace DESIGNER.Properties {
         internal static System.Drawing.Bitmap MicrosoftTeams_image__3_ {
             get {
                 object obj = ResourceManager.GetObject("MicrosoftTeams-image (3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap programador {
+            get {
+                object obj = ResourceManager.GetObject("programador", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

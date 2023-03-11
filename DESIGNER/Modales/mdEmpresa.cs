@@ -60,11 +60,17 @@ namespace DESIGNER.Modales
                     }
                     else
                     {
-                        Dialogo.Error("El ruc ya existe");
+                        Dialogo.Error("El RUC ya existe");
                     }
                 }
             }
         }
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limpiarForm();
+            txtrazonsocial.Focus();
+            this.Close();
+        }
     }
 }

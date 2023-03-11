@@ -378,7 +378,7 @@ AS BEGIN
 		FROM PRODUCTOS PROD
 		INNER JOIN CATEGORIAS CATE ON PROD.idcategoria = CATE.idcategoria
 		WHERE estado = @estado
-		ORDER BY PROD.idproducto DESC
+		ORDER BY PROD.nombreproducto
 END
 GO
 

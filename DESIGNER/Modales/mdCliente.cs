@@ -25,6 +25,7 @@ namespace DESIGNER.Modales
         {
             InitializeComponent();
         }
+
         private void limpiarForm()
         {
             txtapellido.Clear();
@@ -69,6 +70,13 @@ namespace DESIGNER.Modales
                 }
             }
             
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limpiarForm();
+            txtapellido.Focus();
+            this.Close();
         }
     }
 }

@@ -36,13 +36,13 @@
             this.txtIgv = new System.Windows.Forms.TextBox();
             this.txtNeto = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtMetodoPago = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.lblNeto = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtComprobante = new System.Windows.Forms.TextBox();
             this.txtNroDoc = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtMetodoPago = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridDetallesVenta)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -133,10 +133,27 @@
             this.panel1.Size = new System.Drawing.Size(244, 339);
             this.panel1.TabIndex = 5;
             // 
+            // txtMetodoPago
+            // 
+            this.txtMetodoPago.Location = new System.Drawing.Point(29, 92);
+            this.txtMetodoPago.Name = "txtMetodoPago";
+            this.txtMetodoPago.ReadOnly = true;
+            this.txtMetodoPago.Size = new System.Drawing.Size(180, 23);
+            this.txtMetodoPago.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(26, 72);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(124, 17);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Método de pago:";
+            // 
             // lblNeto
             // 
             this.lblNeto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblNeto.Font = new System.Drawing.Font("Century Gothic", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNeto.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNeto.Location = new System.Drawing.Point(0, 0);
             this.lblNeto.Name = "lblNeto";
             this.lblNeto.Size = new System.Drawing.Size(244, 72);
@@ -177,23 +194,6 @@
             this.txtNroDoc.ReadOnly = true;
             this.txtNroDoc.Size = new System.Drawing.Size(211, 23);
             this.txtNroDoc.TabIndex = 8;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(26, 72);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(124, 17);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Método de pago:";
-            // 
-            // txtMetodoPago
-            // 
-            this.txtMetodoPago.Location = new System.Drawing.Point(29, 92);
-            this.txtMetodoPago.Name = "txtMetodoPago";
-            this.txtMetodoPago.ReadOnly = true;
-            this.txtMetodoPago.Size = new System.Drawing.Size(180, 23);
-            this.txtMetodoPago.TabIndex = 10;
             // 
             // frmDetalleVenta
             // 
