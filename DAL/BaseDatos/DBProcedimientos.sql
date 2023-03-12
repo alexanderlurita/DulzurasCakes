@@ -86,7 +86,8 @@ AS BEGIN
 		FROM usuarios
 		INNER JOIN PERSONAS ON USUARIOS.idpersona = PERSONAS.idpersona
 		INNER JOIN ROLES ON USUARIOS.idrol = ROLES.idrol
-		WHERE USUARIOS.nombreusuario = @nombreusuario AND USUARIOS.estado = 1
+		WHERE USUARIOS.nombreusuario = @nombreusuario COLLATE SQL_Latin1_General_CP1_CS_AS AND 
+			  USUARIOS.estado = 1
 END
 GO
 
@@ -443,6 +444,18 @@ CREATE PROCEDURE SPU_PRODUCTOS_ACTIVAR
 AS BEGIN
 	UPDATE PRODUCTOS SET
 		estado = 1
+	WHERE idproducto = @idproducto
+END
+GO
+
+-- DESCONTAR STOCK
+CREATE PROCEDURE SPU_PRODUCTOS_DESCONTAR_STOCK
+@idproducto			INT,
+@cantidad			TINYINT
+AS BEGIN
+	DECLARE @nuevostock TINYINT = (SELECT stock FROM PRODUCTOS WHERE idproducto = @idproducto) - @cantidad;
+	UPDATE PRODUCTOS SET
+		stock = @nuevostock
 	WHERE idproducto = @idproducto
 END
 GO

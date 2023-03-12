@@ -37,7 +37,7 @@ GO
 -- USUARIOS
 INSERT INTO USUARIOS (idpersona, idrol, nombreusuario, claveacceso) VALUES
 	(6, 1,'ANNY', '$2a$06$ARAC36bi02mOka7l4snlUO0AUSJKA9sspXCAsFysLf8uoAEYTktbm'), -- 123456
-	(7, 1,'JOHAN', '$2a$06$BkyhyuW1ntwos8CubstCZuFDx'),	-- 123456
+	(7, 1,'JOHAN', '$2a$06$9MI4wuNMF1Lf4GmBXgaPTu8kapheSMwn6cBwFDu7E0t6px0T5Wd8m'),	-- 123456
 	(8, 1, 'ALEXANDER', '$2a$06$Pgq2Ep7X1l.hMBzFF8aykOITEQ/psGw7KRw1yyg4brl9LuE8oBFkG'), -- 123456
 	(9, 1, 'IRENE', '$2a$06$YOiRzdxpZQekmqZbIK8YjOGwVie8NxkkMkPz/O4kXpZ0qkQICFw6G') -- 123456
 GO

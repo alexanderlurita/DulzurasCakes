@@ -38,13 +38,13 @@ namespace DESIGNER.Mantenimientos
             cargarDatos();
 
             //Configuramos el datagrid
-            gridPersonas.Columns[0].Width = 25;  // Id
-            gridPersonas.Columns[1].Width = 150; // Apellido
-            gridPersonas.Columns[2].Width = 60; // Nombres
-            gridPersonas.Columns[3].Width = 60; // Dni
-            gridPersonas.Columns[4].Width = 150; // direccion
-            gridPersonas.Columns[5].Width = 70; // telefono
-            gridPersonas.Columns[6].Width = 150; // Email
+            gridPersonas.Columns[0].HeaderText = "ID";  // Id
+            gridPersonas.Columns[1].HeaderText = "Apellidos"; // Apellido
+            gridPersonas.Columns[2].HeaderText = "Nombres"; // Nombres
+            gridPersonas.Columns[3].HeaderText = "DNI"; // Dni
+            gridPersonas.Columns[4].HeaderText = "Dirección"; // direccion
+            gridPersonas.Columns[5].HeaderText = "Teléfono"; // telefono
+            gridPersonas.Columns[6].Visible = false; // Email
             gridPersonas.Columns[7].Visible = false; // Apellido y nombres
         }
 

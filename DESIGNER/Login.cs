@@ -7,54 +7,98 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BOL;
-using DESIGNER.Herramientas;
-using ENTITIES;
-using CryptSharp;
 
+using BOL;
+using CryptSharp;
+using DESIGNER.Herramientas;
+using DESIGNER.Mantenimientos;
+using ENTITIES;
 
 namespace DESIGNER
 {
     public partial class Login : Form
     {
-        DataTable tabla = new DataTable();
+        DataTable dtUser = new DataTable();
         EntUsuario entUsuario = new EntUsuario();
         Usuario usuario = new Usuario();
 
+        public int idusuario;
         public Login()
         {
             InitializeComponent();
         }
 
-
         private void btniniciosesion_Click(object sender, EventArgs e)
         {
-            entUsuario.nombreusuario = txtNombreusuario.Text;
-            string claveacceso = txtcontraseña.Text;
-
-            tabla = usuario.iniciarSesion(entUsuario);
-            if (tabla.Rows.Count > 0)
+            if (
+                txtNombreusuario.Text.Trim() != String.Empty && 
+                txtContrasenia.Text.Trim() != String.Empty
+                )
             {
-                string enciptado = tabla.Rows[0][4].ToString();
-                bool inicioSesion = Crypter.CheckPassword(claveacceso, enciptado);
+                entUsuario.nombreusuario = txtNombreusuario.Text;
+                string claveacceso = txtContrasenia.Text;
 
-                if (inicioSesion)
+                dtUser = usuario.iniciarSesion(entUsuario);
+                if (dtUser.Rows.Count > 0)
                 {
-                    Dialogo.Informar("iniciando.....");
-                    Dashboard dashboard = new Dashboard();
-                    dashboard.lblUsuario.Text = entUsuario.nombreusuario;
-                    dashboard.lblrol.Text = tabla.Rows[0][5].ToString();
-                    dashboard.Show();
-                    this.Hide();
+                    string encriptado = dtUser.Rows[0][4].ToString();
+                    bool inicioSesion = Crypter.CheckPassword(claveacceso, encriptado);
+
+                    if (inicioSesion)
+                    {
+                        Dialogo.Informar($"¡Bienvenido {entUsuario.nombreusuario.Trim()}!");
+                        Dashboard dashboard = new Dashboard();
+                        idusuario = Convert.ToInt16(dtUser.Rows[0][0].ToString());
+                        dashboard.lblUsuario.Text = entUsuario.nombreusuario;
+                        dashboard.lblrol.Text = dtUser.Rows[0][5].ToString();
+
+                        txtNombreusuario.Clear();
+                        txtContrasenia.Clear();
+                        txtNombreusuario.Focus();
+
+                        dashboard.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        Dialogo.Error("Contraseña incorrecta");
+                        txtContrasenia.SelectAll();
+                        txtContrasenia.Focus();
+                    }
                 }
                 else
                 {
-                    Dialogo.Error("contraseña incorrecta");
+                    Dialogo.Error($"No existe el usuario {entUsuario.nombreusuario.Trim()}");
+                    txtContrasenia.Clear();
+                    txtNombreusuario.SelectAll();
+                    txtNombreusuario.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("No existe el usuario: " + entUsuario.nombreusuario);
+                Dialogo.Error("Ingrese su nombre de usuario y contraseña");
+            }
+        }
+
+        private void txtNombreusuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (
+                e.KeyChar == Convert.ToChar(Keys.Enter) && 
+                txtNombreusuario.Text.Trim() != String.Empty
+                )
+            {
+                txtContrasenia.Focus();
+            }
+        }
+        
+        private void txtContrasenia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (
+                e.KeyChar == Convert.ToChar(Keys.Enter) &&
+                txtContrasenia.Text.Trim() != String.Empty
+                )
+            {
+                btniniciosesion.PerformClick();
             }
         }
 
@@ -62,14 +106,6 @@ namespace DESIGNER
         {
             Application.Exit();
         }
-
-
-
-        private void txtcontraseña_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            
-        }
-
 
     }
 }

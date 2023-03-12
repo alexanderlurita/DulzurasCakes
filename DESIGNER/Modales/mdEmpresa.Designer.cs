@@ -69,6 +69,7 @@
             this.txtrazonsocial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtrazonsocial.Location = new System.Drawing.Point(44, 61);
             this.txtrazonsocial.Margin = new System.Windows.Forms.Padding(4);
+            this.txtrazonsocial.MaxLength = 80;
             this.txtrazonsocial.Name = "txtrazonsocial";
             this.txtrazonsocial.Size = new System.Drawing.Size(289, 23);
             this.txtrazonsocial.TabIndex = 1;
@@ -85,8 +86,10 @@
             // 
             // btnañadir
             // 
-            this.btnañadir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(110)))), ((int)(((byte)(228)))));
+            this.btnañadir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(59)))));
             this.btnañadir.FlatAppearance.BorderSize = 0;
+            this.btnañadir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
+            this.btnañadir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
             this.btnañadir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnañadir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnañadir.ForeColor = System.Drawing.Color.White;
@@ -104,6 +107,7 @@
             this.txtcorreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcorreo.Location = new System.Drawing.Point(44, 241);
             this.txtcorreo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtcorreo.MaxLength = 100;
             this.txtcorreo.Name = "txtcorreo";
             this.txtcorreo.Size = new System.Drawing.Size(289, 23);
             this.txtcorreo.TabIndex = 9;
@@ -123,6 +127,7 @@
             this.txtdireccion.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdireccion.Location = new System.Drawing.Point(44, 155);
             this.txtdireccion.Margin = new System.Windows.Forms.Padding(4);
+            this.txtdireccion.MaxLength = 100;
             this.txtdireccion.Name = "txtdireccion";
             this.txtdireccion.Size = new System.Drawing.Size(289, 23);
             this.txtdireccion.TabIndex = 5;
@@ -162,8 +167,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(65)))), ((int)(((byte)(54)))));
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(59)))));
             this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
+            this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
@@ -179,8 +186,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(205)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(384, 351);
-            this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtcorreo);
             this.Controls.Add(this.txttelefono);
@@ -194,11 +201,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mdEmpresa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Registro de empresas";
+            this.Text = "Registro de empresa";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -63,6 +63,14 @@ namespace DESIGNER.Mantenimientos
             cargarDatosActivos();
             cargarDatosInactivos();
 
+            gridProductosActivos.Columns[0].HeaderText = "ID";
+            gridProductosActivos.Columns[1].HeaderText = "Categoria";
+            gridProductosActivos.Columns[2].HeaderText = "Producto";
+            gridProductosActivos.Columns[3].HeaderText = "Descripción";
+            gridProductosActivos.Columns[4].HeaderText = "Elaboración";
+            gridProductosActivos.Columns[5].HeaderText = "Precio";
+            gridProductosActivos.Columns[6].HeaderText = "Stock";
+
             cmbCategoria.DataSource = categoria.listar();
             cmbCategoria.ValueMember = "idcategoria";
             cmbCategoria.DisplayMember = "categoria";

@@ -47,10 +47,10 @@ namespace DESIGNER.Mantenimientos
             gridDetallesVenta.DataSource = data;
             gridDetallesVenta.ClearSelection();
 
-            gridDetallesVenta.Columns[0].Width = 200;
-            gridDetallesVenta.Columns[1].Width = 100;
-            gridDetallesVenta.Columns[2].Width = 80;
-            gridDetallesVenta.Columns[3].Width = 100;
+            gridDetallesVenta.Columns[0].HeaderText = "Producto";
+            gridDetallesVenta.Columns[1].HeaderText = "Precio Unit.";
+            gridDetallesVenta.Columns[2].HeaderText = "Cantidad";
+            gridDetallesVenta.Columns[3].HeaderText = "Importe";
 
             gridDetallesVenta.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             gridDetallesVenta.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -77,7 +77,6 @@ namespace DESIGNER.Mantenimientos
             igv = 0;
             subtotal = 0;
         }
-
 
     }
 }

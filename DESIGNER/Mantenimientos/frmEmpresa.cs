@@ -122,6 +122,17 @@ namespace DESIGNER.Mantenimientos
             }
         }
 
-        
+        private void frmEmpresa_Load(object sender, EventArgs e)
+        {
+            gridEmpresas.DataSource = empresa.listarEmpresa();
+            gridEmpresas.Refresh();
+            gridEmpresas.Columns[0].HeaderText = "ID";
+            gridEmpresas.Columns[1].HeaderText = "Razon Social";
+            gridEmpresas.Columns[2].HeaderText = "RUC";
+            gridEmpresas.Columns[3].HeaderText = "Dirección";
+            gridEmpresas.Columns[4].HeaderText = "Teléfono";
+            gridEmpresas.Columns[5].HeaderText = "Email";
+            gridEmpresas.Columns[6].Visible = false;
+        }
     }
 }

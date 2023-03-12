@@ -115,6 +115,7 @@
             this.txtapellido.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtapellido.Location = new System.Drawing.Point(144, 38);
             this.txtapellido.Margin = new System.Windows.Forms.Padding(4);
+            this.txtapellido.MaxLength = 40;
             this.txtapellido.Name = "txtapellido";
             this.txtapellido.Size = new System.Drawing.Size(189, 23);
             this.txtapellido.TabIndex = 1;
@@ -124,6 +125,7 @@
             this.txtnombre.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtnombre.Location = new System.Drawing.Point(144, 78);
             this.txtnombre.Margin = new System.Windows.Forms.Padding(4);
+            this.txtnombre.MaxLength = 40;
             this.txtnombre.Name = "txtnombre";
             this.txtnombre.Size = new System.Drawing.Size(189, 23);
             this.txtnombre.TabIndex = 3;
@@ -143,6 +145,7 @@
             this.txtdireccion.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdireccion.Location = new System.Drawing.Point(44, 175);
             this.txtdireccion.Margin = new System.Windows.Forms.Padding(4);
+            this.txtdireccion.MaxLength = 100;
             this.txtdireccion.Name = "txtdireccion";
             this.txtdireccion.Size = new System.Drawing.Size(289, 23);
             this.txtdireccion.TabIndex = 7;
@@ -162,14 +165,17 @@
             this.txtcorreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcorreo.Location = new System.Drawing.Point(44, 261);
             this.txtcorreo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtcorreo.MaxLength = 100;
             this.txtcorreo.Name = "txtcorreo";
             this.txtcorreo.Size = new System.Drawing.Size(289, 23);
             this.txtcorreo.TabIndex = 11;
             // 
             // btnañadir
             // 
-            this.btnañadir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(110)))), ((int)(((byte)(228)))));
+            this.btnañadir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(59)))));
             this.btnañadir.FlatAppearance.BorderSize = 0;
+            this.btnañadir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
+            this.btnañadir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
             this.btnañadir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnañadir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnañadir.ForeColor = System.Drawing.Color.White;
@@ -184,8 +190,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(65)))), ((int)(((byte)(54)))));
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(59)))));
             this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
+            this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(69)))));
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
@@ -201,8 +209,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(205)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(384, 371);
-            this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnañadir);
             this.Controls.Add(this.txtcorreo);
@@ -218,12 +226,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "mdCliente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Registro de personas";
+            this.Text = "Registro de persona";
             this.ResumeLayout(false);
             this.PerformLayout();
 

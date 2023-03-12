@@ -49,6 +49,7 @@
     <Content Include="BaseDatos\DBInsercciones.sql" />
     <Content Include="BaseDatos\DBProcedimientos.sql" />
     <Content Include="BaseDatos\DBTablas.sql" />
+    <Content Include="BaseDatos\DBVistas.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

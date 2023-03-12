@@ -58,11 +58,17 @@ namespace DESIGNER.Mantenimientos
             gridVentas.Columns["fechaventa"].DisplayIndex = 4;
 
             //Formateando columnas
-            gridVentas.Columns["idventa"].Width = 100;
-            gridVentas.Columns["cliente"].Width = 200;
-            gridVentas.Columns["empresa"].Width = 200;
-            gridVentas.Columns["vendedor"].Width = 90;
+            gridVentas.Columns["idventa"].Width = 80;
+            gridVentas.Columns["cliente"].Width = 240;
+            gridVentas.Columns["empresa"].Width = 240;
+            gridVentas.Columns["vendedor"].Width = 100;
             gridVentas.Columns["fechaventa"].Width = 113;
+
+            gridVentas.Columns["idventa"].HeaderText = "ID";
+            gridVentas.Columns["cliente"].HeaderText = "Cliente";
+            gridVentas.Columns["empresa"].HeaderText = "Empresa";
+            gridVentas.Columns["vendedor"].HeaderText = "Vendedor";
+            gridVentas.Columns["fechaventa"].HeaderText = "Fecha de venta";
 
             gridVentas.ClearSelection();
             gridVentas.Refresh();
@@ -74,6 +80,7 @@ namespace DESIGNER.Mantenimientos
         {
             txtDniOrRuc.Clear();
             txtClienteOrRazonSocial.Clear();
+            btnAnadirQuitar.Text = "Añadir";
         }
 
         private void reiniciarDatosProductos()
@@ -88,7 +95,7 @@ namespace DESIGNER.Mantenimientos
 
         private void reiniciarDatosPago()
         {
-            btnSiguiente.Text = "SIGUIENTE";
+            btnSiguiente.Text = "Siguiente";
 
             gridDetalles.Rows.Clear();
             txtIgv.Clear();
@@ -132,22 +139,26 @@ namespace DESIGNER.Mantenimientos
 
         private void generarReporte(string tipo)
         {
-            SaveFileDialog dialogo = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            dialogo.Title = "Exportar reporte como" + tipo.ToUpper();
-            dialogo.Filter = "Documento Digital|*." + tipo;
-            dialogo.FileName = "Reporte de Entregas ";
+            saveFileDialog.Title = $"Exportar reporte como {tipo.ToUpper()}";
+            saveFileDialog.FileName = "Reporte de ventas";
+            saveFileDialog.Filter = $"*.{tipo.ToUpper()}|*.{tipo.ToLower()}";
 
-            if (dialogo.ShowDialog() == DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Reportes.ReporteVentas reporte = new Reportes.ReporteVentas();
-                if (tipo == "pdf")
+                switch (tipo)
                 {
-                    reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, dialogo.FileName);
-                }
-                else if (tipo == "xlsx")
-                {
-                    reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.ExcelWorkbook, dialogo.FileName);
+                    case "pdf":
+                        reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, saveFileDialog.FileName);
+                        break;
+                    case "xlsx":
+                        reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.ExcelWorkbook, saveFileDialog.FileName);
+                        break;
+                    default:
+                        Dialogo.Error("No existe este formato");
+                        break;
                 }
             }
         }
@@ -244,6 +255,8 @@ namespace DESIGNER.Mantenimientos
             reiniciarDatosProductos();
             reiniciarDatosPago();
 
+            rbtnBoleta.Checked = true;
+
             btnAtras.Visible = false;
             tbcVentas.TabPages.Clear();
             tbcVentas.TabPages.Add(tbpVentas);
@@ -259,7 +272,7 @@ namespace DESIGNER.Mantenimientos
             }
             else if (tbcDetalleVenta.SelectedTab == tbpPago)
             {
-                btnSiguiente.Text = "SIGUIENTE";
+                btnSiguiente.Text = "Siguiente";
                 tbcDetalleVenta.TabPages.Clear();
                 tbcDetalleVenta.TabPages.Add(tbpProductos);
                 cmbProductos.SelectedValue = -1;
@@ -294,7 +307,7 @@ namespace DESIGNER.Mantenimientos
             {
                 if (gridDetalles.Rows.Count > 0)
                 {
-                    btnSiguiente.Text = "FINALIZAR";
+                    btnSiguiente.Text = "Finalizar venta";
 
                     tbcDetalleVenta.TabPages.Clear();
                     tbcDetalleVenta.TabPages.Add(tbpPago);
@@ -336,7 +349,7 @@ namespace DESIGNER.Mantenimientos
             {
                 if (Dialogo.Preguntar("¿Finalizar venta?") == DialogResult.Yes)
                 {
-                    entVenta.idusuario = 3; //EDITAR
+                    entVenta.idusuario = Program.login.idusuario;
                     venta.registrar(entVenta);
 
                     DataTable dtUltimaVenta = venta.getUltimaVenta();
@@ -349,6 +362,7 @@ namespace DESIGNER.Mantenimientos
                         entDetalleVenta.precioventa = (float)Convert.ToDecimal(row.Cells["CPrecio"].Value.ToString());
 
                         detalleVenta.registrar(entDetalleVenta);
+                        producto.descontarStock(entDetalleVenta.idproducto, entDetalleVenta.cantidad);
                     }
 
                     Dialogo.Informar("Venta realizada correctamente");
@@ -393,6 +407,7 @@ namespace DESIGNER.Mantenimientos
                     {
                         entVenta.idpersona = Convert.ToInt32(resultado.Rows[0][0].ToString());
                         txtClienteOrRazonSocial.Text = resultado.Rows[0][1].ToString();
+                        btnAnadirQuitar.Text = "Quitar";
                     }
                     else
                     {
@@ -407,6 +422,7 @@ namespace DESIGNER.Mantenimientos
                     {
                         entVenta.idempresa = Convert.ToInt32(resultado.Rows[0][0].ToString());
                         txtClienteOrRazonSocial.Text = resultado.Rows[0][1].ToString();
+                        btnAnadirQuitar.Text = "Quitar";
                     }
                     else
                     {
@@ -424,45 +440,50 @@ namespace DESIGNER.Mantenimientos
             }
         }
 
-        private void btnAnadir_Click(object sender, EventArgs e)
+        private void btnAnadirQuitar_Click(object sender, EventArgs e)
         {
-            if (rbtnBoleta.Checked)
+            if (btnAnadirQuitar.Text == "Añadir")
             {
-                modalcliente.WindowState = FormWindowState.Normal;
-                modalcliente.ShowDialog();
-
-                txtDniOrRuc.Text = modalcliente.dni;
-                if (txtDniOrRuc.Text.Trim() != String.Empty)
+                if (rbtnBoleta.Checked)
                 {
-                    entPersona.dni = txtDniOrRuc.Text;
-                    DataTable dt = persona.buscarPersonaDni(entPersona);
-                    txtClienteOrRazonSocial.Text = dt.Rows[0][1].ToString();
-                    entVenta.idpersona = Convert.ToInt32(dt.Rows[0][0].ToString());
+                    modalcliente.WindowState = FormWindowState.Normal;
+                    modalcliente.ShowDialog();
+
+                    txtDniOrRuc.Text = modalcliente.dni;
+                    if (txtDniOrRuc.Text.Trim() != String.Empty)
+                    {
+                        entPersona.dni = txtDniOrRuc.Text;
+                        DataTable dt = persona.buscarPersonaDni(entPersona);
+                        txtClienteOrRazonSocial.Text = dt.Rows[0][1].ToString();
+                        entVenta.idpersona = Convert.ToInt32(dt.Rows[0][0].ToString());
+                        btnAnadirQuitar.Text = "Quitar";
+                    }
+                }
+                else
+                {
+                    modalempresa.WindowState = FormWindowState.Normal;
+                    modalempresa.ShowDialog();
+
+                    txtDniOrRuc.Text = modalempresa.ruc;
+                    if (txtDniOrRuc.Text.Trim() != String.Empty)
+                    {
+                        entEmpresa.ruc = txtDniOrRuc.Text;
+                        DataTable dt = empresa.buscarEmpresa(entEmpresa);
+                        txtClienteOrRazonSocial.Text = dt.Rows[0][1].ToString();
+                        entVenta.idempresa = Convert.ToInt32(dt.Rows[0][0].ToString());
+                        btnAnadirQuitar.Text = "Añadir";
+                    }
                 }
             }
             else
             {
-                modalempresa.WindowState = FormWindowState.Normal;
-                modalempresa.ShowDialog();
+                txtClienteOrRazonSocial.Clear();
+                txtDniOrRuc.Clear();
+                btnAnadirQuitar.Text = "Añadir";
 
-                txtDniOrRuc.Text = modalempresa.ruc;
-                if (txtDniOrRuc.Text.Trim() != String.Empty)
-                {
-                    entEmpresa.ruc = txtDniOrRuc.Text;
-                    DataTable dt = empresa.buscarEmpresa(entEmpresa);
-                    txtClienteOrRazonSocial.Text = dt.Rows[0][1].ToString();
-                    entVenta.idempresa = Convert.ToInt32(dt.Rows[0][0].ToString());
-                }
+                entVenta.idpersona = 0;
+                entVenta.idempresa = 0;
             }
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            txtClienteOrRazonSocial.Clear();
-            txtDniOrRuc.Clear();
-
-            entVenta.idpersona = 0;
-            entVenta.idempresa = 0;
         }
 
         private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -516,10 +537,11 @@ namespace DESIGNER.Mantenimientos
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celbutton = gridDetalles.Rows[e.RowIndex].Cells["Eliminar"] as DataGridViewButtonCell;
                 Icon icono = new Icon(Environment.CurrentDirectory + @"\..\..\Resources\borrar.ico");
-                e.Graphics.DrawIcon(icono, e.CellBounds.Left + 25, e.CellBounds.Top + 5);
-                gridDetalles.Rows[e.RowIndex].Height = icono.Height + 8;
-                gridDetalles.Columns[e.ColumnIndex].Width = icono.Width + 50;
+                e.Graphics.DrawIcon(icono, e.CellBounds.Left + 19, e.CellBounds.Top + 0);
+                gridDetalles.Rows[e.RowIndex].Height = icono.Height + 1;
+                gridDetalles.Columns[e.ColumnIndex].Width = icono.Width + 10;
                 e.Handled = true;
+                gridDetalles.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
 
@@ -537,6 +559,5 @@ namespace DESIGNER.Mantenimientos
             entVenta.idtipopago = Convert.ToInt16(cmbMedioPago.SelectedValue.ToString());
         }
 
-        
     }
 }

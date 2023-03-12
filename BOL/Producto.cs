@@ -141,6 +141,29 @@ namespace BOL
             }
         }
 
+        public int descontarStock(int idproducto, int cantidad)
+        {
+            int filasAfectadas = 0;
+            SqlCommand command = new SqlCommand("SPU_PRODUCTOS_DESCONTAR_STOCK", acceso.getConexion());
+            command.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                acceso.conectar();
+
+                command.Parameters.AddWithValue("@idproducto", idproducto);
+                command.Parameters.AddWithValue("@cantidad", cantidad);
+                filasAfectadas = command.ExecuteNonQuery();
+
+                acceso.desconectar();
+
+                return filasAfectadas;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
 
     }
 }

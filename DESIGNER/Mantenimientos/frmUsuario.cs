@@ -80,6 +80,12 @@ namespace DESIGNER.Mantenimientos
         {
             dt = usuario.listarUsuarios(estado);
             gridUsuario.DataSource = dt;
+
+            gridUsuario.Columns[0].HeaderText = "ID";
+            gridUsuario.Columns[1].HeaderText = "Apellidos";
+            gridUsuario.Columns[2].HeaderText = "Nombres";
+            gridUsuario.Columns[3].HeaderText = "Rol";
+            gridUsuario.Columns[4].HeaderText = "Usuario";
             if (gridUsuario.SelectedRows.Count > 0)
             {
                 gridUsuario.SelectedRows[0].Selected = false;
@@ -276,6 +282,8 @@ namespace DESIGNER.Mantenimientos
 
             }
         }
+
+        
     }
 }
     
