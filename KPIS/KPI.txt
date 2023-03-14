@@ -1,0 +1,7 @@
+1. Cuantas ventas realizo cada usuario durante el ultimo mes.
+
+2. Cuantos productos ha vendido cada usuario por semana.
+
+3. Que dias de la semana aumenta mas la ventas.
+
+4. Cual fueron los productos más vendidos en la ultima semana.

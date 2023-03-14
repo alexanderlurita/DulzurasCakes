@@ -31,6 +31,12 @@ namespace DESIGNER.Mantenimientos
             gridCategorias.DataSource = dt;
             gridCategorias.ClearSelection();
             gridCategorias.Refresh();
+
+            gridCategorias.Columns[0].Width = 100;
+            gridCategorias.Columns[1].Width = 370;
+
+            gridCategorias.Columns[0].HeaderText = "ID";
+            gridCategorias.Columns[1].HeaderText = "Categoría";
         }
 
         private void reiniciarForm()

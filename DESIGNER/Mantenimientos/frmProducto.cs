@@ -35,6 +35,22 @@ namespace DESIGNER.Mantenimientos
             gridProductosActivos.ClearSelection();
             gridProductosActivos.Refresh();
 
+            gridProductosActivos.Columns[0].Width = 50;
+            gridProductosActivos.Columns[1].Width = 90;
+            gridProductosActivos.Columns[2].Width = 200;
+            gridProductosActivos.Columns[3].Width = 257;
+            gridProductosActivos.Columns[4].Width = 113;
+            gridProductosActivos.Columns[5].Width = 55;
+            gridProductosActivos.Columns[6].Width = 55;
+
+            gridProductosActivos.Columns[0].HeaderText = "ID";
+            gridProductosActivos.Columns[1].HeaderText = "Categoria";
+            gridProductosActivos.Columns[2].HeaderText = "Producto";
+            gridProductosActivos.Columns[3].HeaderText = "Descripción";
+            gridProductosActivos.Columns[4].HeaderText = "Fecha elaboración";
+            gridProductosActivos.Columns[5].HeaderText = "Precio";
+            gridProductosActivos.Columns[6].HeaderText = "Stock";
+
             dv1 = dt1.DefaultView;
         }
 
@@ -44,6 +60,22 @@ namespace DESIGNER.Mantenimientos
             gridProductosInactivos.DataSource = dt2;
             gridProductosInactivos.ClearSelection();
             gridProductosInactivos.Refresh();
+
+            gridProductosInactivos.Columns[0].Width = 50;
+            gridProductosInactivos.Columns[1].Width = 90;
+            gridProductosInactivos.Columns[2].Width = 200;
+            gridProductosInactivos.Columns[3].Width = 257;
+            gridProductosInactivos.Columns[4].Width = 113;
+            gridProductosInactivos.Columns[5].Width = 55;
+            gridProductosInactivos.Columns[6].Width = 55;
+
+            gridProductosInactivos.Columns[0].HeaderText = "ID";
+            gridProductosInactivos.Columns[1].HeaderText = "Categoria";
+            gridProductosInactivos.Columns[2].HeaderText = "Producto";
+            gridProductosInactivos.Columns[3].HeaderText = "Descripción";
+            gridProductosInactivos.Columns[4].HeaderText = "Fecha elaboración";
+            gridProductosInactivos.Columns[5].HeaderText = "Precio";
+            gridProductosInactivos.Columns[6].HeaderText = "Stock";
 
             dv2 = dt2.DefaultView;
         }
@@ -62,14 +94,6 @@ namespace DESIGNER.Mantenimientos
         {
             cargarDatosActivos();
             cargarDatosInactivos();
-
-            gridProductosActivos.Columns[0].HeaderText = "ID";
-            gridProductosActivos.Columns[1].HeaderText = "Categoria";
-            gridProductosActivos.Columns[2].HeaderText = "Producto";
-            gridProductosActivos.Columns[3].HeaderText = "Descripción";
-            gridProductosActivos.Columns[4].HeaderText = "Elaboración";
-            gridProductosActivos.Columns[5].HeaderText = "Precio";
-            gridProductosActivos.Columns[6].HeaderText = "Stock";
 
             cmbCategoria.DataSource = categoria.listar();
             cmbCategoria.ValueMember = "idcategoria";
@@ -112,7 +136,6 @@ namespace DESIGNER.Mantenimientos
             if (
                 cmbCategoria.Text == String.Empty ||
                 txtNomProducto.Text.Trim() == String.Empty ||
-                txtDescripcion.Text.Trim() == String.Empty ||
                 txtPrecio.Text.Trim() == String.Empty ||
                 nudStock.Value == 0
                 )
@@ -260,5 +283,6 @@ namespace DESIGNER.Mantenimientos
                 cargarDatosInactivos();
             }
         }
+    
     }
 }

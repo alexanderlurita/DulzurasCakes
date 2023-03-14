@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using BOL;
+using CrystalDecisions.CrystalReports.Engine;
 using DESIGNER.Herramientas;
 using DESIGNER.Modales;
+using DESIGNER.Reportes;
 using ENTITIES;
 
 namespace DESIGNER.Mantenimientos
@@ -40,6 +42,9 @@ namespace DESIGNER.Mantenimientos
 
         mdCliente modalcliente = new mdCliente();
         mdEmpresa modalempresa = new mdEmpresa();
+
+        VisorReporte formulario;
+        SaveFileDialog saveFileDialog;
 
         public frmVenta()
         {
@@ -137,29 +142,26 @@ namespace DESIGNER.Mantenimientos
             txtSubtotal.Text = subtotal.ToString("0,0.00");
         }
 
-        private void generarReporte(string tipo)
+        private void lanzarReporte(ReportClass reporteVisualizar)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            formulario = new VisorReporte();
+            formulario.visorRpt.ReportSource = reporteVisualizar;
+            formulario.visorRpt.RefreshReport();
+            formulario.ShowDialog();
+        }
 
-            saveFileDialog.Title = $"Exportar reporte como {tipo.ToUpper()}";
-            saveFileDialog.FileName = "Reporte de ventas";
-            saveFileDialog.Filter = $"*.{tipo.ToUpper()}|*.{tipo.ToLower()}";
+        private void exportarPDF(ReportClass reporteVisualizar, string titulo)
+        {
+            saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Title = "Exportando datos como PDF";
+            saveFileDialog.Filter = "*.PDF|*.pdf";
+            saveFileDialog.FileName = "Reporte de " + titulo;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Reportes.ReporteVentas reporte = new Reportes.ReporteVentas();
-                switch (tipo)
-                {
-                    case "pdf":
-                        reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, saveFileDialog.FileName);
-                        break;
-                    case "xlsx":
-                        reporte.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.ExcelWorkbook, saveFileDialog.FileName);
-                        break;
-                    default:
-                        Dialogo.Error("No existe este formato");
-                        break;
-                }
+                reporteVisualizar.Refresh();
+                reporteVisualizar.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, saveFileDialog.FileName);
             }
         }
 
@@ -244,9 +246,48 @@ namespace DESIGNER.Mantenimientos
             cargarDatos();
         }
 
-        private void btnReporte_Click(object sender, EventArgs e)
+        private void btnVisualizar_Click(object sender, EventArgs e)
         {
-            generarReporte("pdf");
+            switch (cmbReportes.Text)
+            {
+                case "Reporte 1":
+                    lanzarReporte(new Reporte01());
+                    break;
+                case "Reporte 2":
+                    lanzarReporte(new Reporte02());
+                    break;
+                case "Reporte 3":
+                    lanzarReporte(new Reporte03());
+                    break;
+                case "Reporte 4":
+                    lanzarReporte(new Reporte04());
+                    break;
+                default:
+                    Dialogo.Informar("Seleccione un reporte para visualizar");
+                    break;
+            }
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            switch (cmbReportes.Text)
+            {
+                case "Reporte 1":
+                    exportarPDF(new Reporte01(), "Ventas realizadas por usuarios en el último mes");
+                    break;
+                case "Reporte 2":
+                    exportarPDF(new Reporte02(), "Productos vendidos por un usuario por semana");
+                    break;
+                case "Reporte 3":
+                    exportarPDF(new Reporte03(), "Dias de la semana con mayor ventas");
+                    break;
+                case "Reporte 4":
+                    exportarPDF(new Reporte04(), "Productos más vendidos en los últimos 7 días");
+                    break;
+                default:
+                    Dialogo.Informar("Seleccione un reporte para exportar");
+                    break;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -559,5 +600,6 @@ namespace DESIGNER.Mantenimientos
             entVenta.idtipopago = Convert.ToInt16(cmbMedioPago.SelectedValue.ToString());
         }
 
+        
     }
 }
